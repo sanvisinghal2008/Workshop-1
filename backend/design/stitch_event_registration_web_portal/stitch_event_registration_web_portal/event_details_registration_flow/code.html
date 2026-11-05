@@ -1,0 +1,666 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Event Pulse - Global Cloud Architecture &amp; Kubernetes Summit 2025</title>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=JetBrains+Mono:wght@500;600;700&amp;family=Plus+Jakarta+Sans:wght@600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          "colors": {
+            "surface": "#fcf8ff",
+            "surface-container-highest": "#e3dfff",
+            "on-surface": "#181445",
+            "primary-container": "#4a24b2",
+            "on-tertiary-fixed-variant": "#464555",
+            "inverse-primary": "#ccbeff",
+            "on-primary-container": "#b9a6ff",
+            "on-tertiary-fixed": "#1b1a29",
+            "inverse-surface": "#2d2a5b",
+            "error": "#ba1a1a",
+            "on-error": "#ffffff",
+            "tertiary-container": "#454354",
+            "primary-fixed-dim": "#ccbeff",
+            "tertiary-fixed": "#e4e0f5",
+            "inverse-on-surface": "#f3eeff",
+            "error-container": "#ffdad6",
+            "on-secondary-container": "#571a00",
+            "on-tertiary": "#ffffff",
+            "on-primary": "#ffffff",
+            "surface-container-lowest": "#ffffff",
+            "on-secondary-fixed": "#370e00",
+            "primary": "#330093",
+            "on-background": "#181445",
+            "background": "#fcf8ff",
+            "surface-container-high": "#e9e5ff",
+            "on-error-container": "#93000a",
+            "on-tertiary-container": "#b3b0c4",
+            "surface-bright": "#fcf8ff",
+            "surface-container-low": "#f6f2ff",
+            "primary-fixed": "#e7deff",
+            "surface-container": "#efebff",
+            "surface-tint": "#6444cd",
+            "outline-variant": "#cac4d6",
+            "on-surface-variant": "#484554",
+            "surface-dim": "#dad6ff",
+            "tertiary-fixed-dim": "#c7c4d8",
+            "on-secondary": "#ffffff",
+            "on-secondary-fixed-variant": "#7f2b00",
+            "secondary-fixed": "#ffdbce",
+            "tertiary": "#2e2d3d",
+            "secondary": "#a73a00",
+            "secondary-container": "#fd651e",
+            "outline": "#797585",
+            "on-primary-fixed-variant": "#4c27b4",
+            "surface-variant": "#e3dfff",
+            "on-primary-fixed": "#1e0060",
+            "secondary-fixed-dim": "#ffb599"
+          },
+          "borderRadius": {
+            "DEFAULT": "0.25rem",
+            "lg": "0.5rem",
+            "xl": "0.75rem",
+            "full": "9999px"
+          },
+          "spacing": {
+            "space-md": "1rem",
+            "gutter": "1rem",
+            "space-xl": "2.5rem",
+            "space-sm": "0.5rem",
+            "margin": "1rem",
+            "space-xs": "0.25rem",
+            "margin-tablet": "2rem",
+            "gutter-desktop": "1.5rem",
+            "margin-desktop": "3rem",
+            "space-lg": "1.5rem"
+          },
+          "fontFamily": {
+            "label-code": ["JetBrains Mono"],
+            "display-lg": ["Plus Jakarta Sans"],
+            "headline-lg": ["Plus Jakarta Sans"],
+            "body-lg": ["Inter"],
+            "headline-sm": ["Plus Jakarta Sans"],
+            "display-lg-mobile": ["Plus Jakarta Sans"],
+            "body-sm": ["Inter"],
+            "label-md": ["Inter"],
+            "headline-md": ["Plus Jakarta Sans"],
+            "body-md": ["Inter"],
+            "label-badge": ["Plus Jakarta Sans"]
+          },
+          "fontSize": {
+            "label-code": ["13px", { "lineHeight": "18px", "fontWeight": "600" }],
+            "display-lg": ["40px", { "lineHeight": "48px", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+            "headline-lg": ["28px", { "lineHeight": "36px", "letterSpacing": "-0.01em", "fontWeight": "600" }],
+            "body-lg": ["16px", { "lineHeight": "24px", "fontWeight": "400" }],
+            "headline-sm": ["18px", { "lineHeight": "24px", "fontWeight": "600" }],
+            "display-lg-mobile": ["30px", { "lineHeight": "38px", "letterSpacing": "-0.01em", "fontWeight": "700" }],
+            "body-sm": ["12px", { "lineHeight": "16px", "fontWeight": "400" }],
+            "label-md": ["14px", { "lineHeight": "20px", "fontWeight": "500" }],
+            "headline-md": ["22px", { "lineHeight": "28px", "fontWeight": "600" }],
+            "body-md": ["14px", { "lineHeight": "20px", "fontWeight": "400" }],
+            "label-badge": ["12px", { "lineHeight": "16px", "letterSpacing": "0.04em", "fontWeight": "700" }]
+          }
+        },
+      },
+    }
+  </script>
+</head>
+<body class="bg-background text-on-surface antialiased min-h-screen flex flex-col font-body-md selection:bg-primary selection:text-on-primary">
+<!-- Top Navigation Anchor from Shared Components -->
+<header class="bg-surface-container-lowest dark:bg-inverse-surface shadow-sm dark:shadow-none sticky top-0 z-40">
+<div class="flex justify-between items-center w-full px-space-md md:px-margin-tablet lg:px-margin-desktop max-w-[1280px] mx-auto h-16">
+<!-- Brand & Left Search / Breadcrumb group -->
+<div class="flex items-center gap-space-lg">
+<a class="text-headline-sm font-headline-sm font-bold text-primary dark:text-inverse-primary tracking-tight flex items-center gap-2" href="#">
+<span class="w-8 h-8 rounded-lg bg-primary-container flex items-center justify-center text-on-primary shadow-sm">
+<span class="material-symbols-outlined" data-icon="terminal" style="font-size: 20px;">terminal</span>
+</span>
+<span>Event Pulse</span>
+</a>
+<!-- Breadcrumb / Endpoint Path Anchor -->
+<div class="hidden lg:flex items-center gap-2 text-label-md font-label-md pl-4 border-l border-surface-container-high">
+<span class="text-on-surface-variant">Events</span>
+<span class="text-outline-variant">/</span>
+<span class="text-primary font-semibold truncate max-w-xs">Cloud Native Summit 2025</span>
+<span class="font-label-code text-label-code bg-surface-container text-primary-container px-2 py-0.5 rounded border border-outline-variant/30">ID: ev-9481</span>
+</div>
+</div>
+<!-- Center Nav Links -->
+<nav class="hidden md:flex items-center gap-6">
+<a class="text-primary dark:text-inverse-primary font-semibold border-b-2 border-primary dark:border-inverse-primary pb-1 text-label-md font-label-md" href="#">Events</a>
+<a class="text-on-surface-variant dark:text-surface-container-highest font-medium hover:bg-surface-container dark:hover:bg-tertiary-container hover:text-primary dark:hover:text-inverse-primary rounded-lg transition-colors px-2 py-1 text-label-md font-label-md" href="#">My Registrations</a>
+<a class="text-on-surface-variant dark:text-surface-container-highest font-medium hover:bg-surface-container dark:hover:bg-tertiary-container hover:text-primary dark:hover:text-inverse-primary rounded-lg transition-colors px-2 py-1 text-label-md font-label-md" href="#">Organizer Hub</a>
+<a class="text-on-surface-variant dark:text-surface-container-highest font-medium hover:bg-surface-container dark:hover:bg-tertiary-container hover:text-primary dark:hover:text-inverse-primary rounded-lg transition-colors px-2 py-1 text-label-md font-label-md flex items-center gap-1" href="#">
+<span>API Docs</span>
+<span class="material-symbols-outlined text-[16px]" data-icon="open_in_new">open_in_new</span>
+</a>
+</nav>
+<!-- Trailing Action Controls -->
+<div class="flex items-center gap-3">
+<button class="hidden sm:inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-outline-variant/60 font-label-code text-label-code text-primary-container bg-surface-container-lowest hover:bg-surface-container transition-all active:scale-95 shadow-sm" type="button">
+<span class="material-symbols-outlined text-[16px] text-secondary" data-icon="terminal">terminal</span>
+<span>API Console</span>
+</button>
+<button class="relative p-2 rounded-lg text-on-surface-variant hover:bg-surface-container transition-colors" type="button">
+<span class="material-symbols-outlined text-[20px]" data-icon="notifications">notifications</span>
+<span class="absolute top-1.5 right-1.5 w-2 h-2 rounded-full bg-secondary"></span>
+</button>
+<button class="bg-primary text-on-primary font-label-md text-label-md px-4 py-2 rounded-lg font-medium hover:bg-primary-container transition-all active:scale-95 shadow-sm flex items-center gap-1.5" type="button">
+<span class="material-symbols-outlined text-[18px]" data-icon="add">add</span>
+<span class="hidden sm:inline">Create Event</span>
+</button>
+<div class="w-8 h-8 rounded-full border border-outline-variant overflow-hidden ml-1">
+<img class="w-full h-full object-cover" data-alt="A clean, minimalist circular headshot of a technical event developer in high key modern ambient light against an indigo gradient studio background." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDR-2VmYHCfYeUSFCIQvdFVR_cuRnZWW5KQKzf6wVHsSewZZMuH69Du_FTwBug587Xt0gUyuxj6-xpDFVJpI4fjGJbw9wVbB6g0JbKpFJ5AEnRPJHmNMIZ4A_dYZG7AHWGGw99WBUESTH2JeGSTExUXol9oPQN8zk8muc1eykdWO_HfcnTv7U6nl4tE49iwvxrnTdFbxu2AReZ20dPbSJ6oIw9axqj03JnhYAM6YYa8"/>
+</div>
+</div>
+</div>
+</header>
+<!-- Sub-Header / Breadcrumb on Small Screens -->
+<div class="lg:hidden bg-surface-container-low px-space-md py-2.5 border-b border-surface-container-high text-body-sm font-body-sm flex items-center gap-2">
+<a class="text-on-surface-variant hover:text-primary flex items-center gap-1" href="#">
+<span class="material-symbols-outlined text-[14px]" data-icon="arrow_back">arrow_back</span>
+<span>Events</span>
+</a>
+<span class="text-outline-variant">/</span>
+<span class="text-primary font-medium truncate">Cloud Native Summit 2025</span>
+<span class="font-label-code text-label-code bg-surface-container px-1.5 py-0.5 rounded text-primary-container text-[11px]">ev-9481</span>
+</div>
+<!-- Main Body Canvas -->
+<main class="flex-1 w-full max-w-[1280px] mx-auto px-space-md md:px-margin-tablet lg:px-margin-desktop py-space-lg">
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+<!-- ================= LEFT / MAIN CONTENT COLUMN (7 cols desktop) ================= -->
+<section class="lg:col-span-7 xl:col-span-8 flex flex-col gap-6">
+<!-- Hero Card Section -->
+<article class="bg-surface-container-lowest rounded-xl border border-surface-container-high p-6 md:p-8 shadow-sm relative overflow-hidden">
+<!-- Background Geometric Tone Accents -->
+<div class="absolute -right-16 -top-16 w-56 h-56 rounded-full bg-surface-container-high/60 blur-3xl pointer-events-none"></div>
+<!-- Metas & Organizers -->
+<div class="flex flex-wrap items-center justify-between gap-3 mb-4">
+<div class="flex items-center gap-2.5">
+<span class="inline-flex items-center gap-1 px-2.5 py-1 rounded bg-surface-container text-primary-container font-label-badge text-label-badge tracking-wider">
+<span class="material-symbols-outlined text-[14px]" data-icon="cloud">cloud</span>
+                KUBERNETES &amp; ARCHITECTURE
+              </span>
+<span class="font-label-code text-label-code text-secondary font-bold bg-secondary-fixed/40 px-2 py-0.5 rounded flex items-center gap-1">
+<span class="w-1.5 h-1.5 rounded-full bg-secondary animate-pulse"></span>
+                LIVE &amp; HYBRID
+              </span>
+</div>
+<div class="flex items-center gap-1.5 text-on-surface-variant font-label-md text-label-md">
+<span class="material-symbols-outlined text-[16px] text-primary" data-icon="domain">domain</span>
+<span>Organized by <strong class="text-on-surface font-semibold">CloudScale Labs</strong></span>
+</div>
+</div>
+<!-- Main Title -->
+<h1 class="font-display-lg text-display-lg text-on-surface tracking-tight mb-4">
+            Global Cloud Architecture &amp; Kubernetes Summit 2025
+          </h1>
+<!-- Event Detail Pills (Date, Location, Protocol) -->
+<div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3 pt-2 pb-6 border-y border-surface-container-high my-2">
+<div class="flex items-start gap-3">
+<div class="w-9 h-9 rounded-lg bg-surface-container flex items-center justify-center text-primary-container shrink-0">
+<span class="material-symbols-outlined text-[20px]" data-icon="calendar_month">calendar_month</span>
+</div>
+<div>
+<p class="text-body-sm font-body-sm text-on-surface-variant">Dates &amp; Schedule</p>
+<p class="font-headline-sm text-headline-sm text-on-surface">Oct 14-16, 2025</p>
+<p class="text-body-sm font-body-sm text-outline">3 Days of Intensives</p>
+</div>
+</div>
+<div class="flex items-start gap-3">
+<div class="w-9 h-9 rounded-lg bg-surface-container flex items-center justify-center text-primary-container shrink-0">
+<span class="material-symbols-outlined text-[20px]" data-icon="location_on">location_on</span>
+</div>
+<div>
+<p class="text-body-sm font-body-sm text-on-surface-variant">Location &amp; Access</p>
+<p class="font-headline-sm text-headline-sm text-on-surface">San Francisco, CA</p>
+<p class="text-body-sm font-body-sm text-outline">Moscone Center + Stream</p>
+</div>
+</div>
+<div class="flex items-start gap-3">
+<div class="w-9 h-9 rounded-lg bg-surface-container flex items-center justify-center text-primary-container shrink-0">
+<span class="material-symbols-outlined text-[20px]" data-icon="webhook">webhook</span>
+</div>
+<div>
+<p class="text-body-sm font-body-sm text-on-surface-variant">API Synchronization</p>
+<p class="font-headline-sm text-headline-sm text-on-surface font-label-code">v2.4 Live Webhook</p>
+<p class="text-body-sm font-body-sm text-outline">Auto-sync calendar &amp; keys</p>
+</div>
+</div>
+</div>
+<!-- Hero Image Banner -->
+<div class="mt-4 relative rounded-lg overflow-hidden border border-surface-container-high h-48 md:h-60 group">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="An expansive panoramic view of a futuristic tech amphitheater in San Francisco with subtle violet ambient lighting, massive translucent data screens displaying Kubernetes architectures, and a high-tech keynote stage set for enterprise engineers." src="https://lh3.googleusercontent.com/aida-public/AB6AXuA1wJS-15yhRKzkkp3sD041FTBYpzBHlwcrmomYEH59CFtfL6YvvaCMYHRNF8a9WPqs5Fp8U1eF2k3ViW6_2kathSWYc07t7kAYzYG8_K0Lf0QV9QGGOz_huFtl33teznwnCKbi4kT3podHuuifB4c3fngkVuq5Ics0teg5zS3i7xk5wqslwGg4SAHOtp4trRsDq_Wzy208nhtugZOteRyB47yoRQVk0C1rYkzZmqp7"/>
+<div class="absolute inset-0 bg-gradient-to-t from-inverse-surface/80 via-transparent to-transparent flex items-end p-4 justify-between">
+<div class="text-on-primary">
+<span class="font-label-badge text-label-badge tracking-wider bg-primary/80 px-2 py-0.5 rounded text-white backdrop-blur">STAGE 01 • MAIN PLENARY</span>
+<p class="text-headline-sm font-headline-sm mt-1 font-bold">Keynote Stage + 4 Multi-track Breakouts</p>
+</div>
+<span class="font-label-code text-label-code bg-surface-container-lowest/90 text-primary-container px-2.5 py-1 rounded shadow-sm">
+                HTTP/2 STREAMS ON
+              </span>
+</div>
+</div>
+</article>
+<!-- Segmented Tab Navigation -->
+<nav aria-label="Summit Tabs" class="bg-surface-container p-1 rounded-xl flex items-center gap-1 overflow-x-auto shadow-sm">
+<button class="bg-surface-container-lowest text-primary font-semibold shadow-sm px-4 py-2 rounded-lg text-label-md font-label-md transition-all shrink-0 flex items-center gap-1.5" type="button">
+<span class="material-symbols-outlined text-[18px]" data-icon="info">info</span>
+<span>Overview</span>
+</button>
+<button class="text-on-surface-variant hover:text-primary hover:bg-surface-container-low px-4 py-2 rounded-lg text-label-md font-label-md font-medium transition-all shrink-0 flex items-center gap-1.5" type="button">
+<span class="material-symbols-outlined text-[18px]" data-icon="schedule">schedule</span>
+<span>Schedule &amp; Keynotes</span>
+</button>
+<button class="text-on-surface-variant hover:text-primary hover:bg-surface-container-low px-4 py-2 rounded-lg text-label-md font-label-md font-medium transition-all shrink-0 flex items-center gap-1.5" type="button">
+<span class="material-symbols-outlined text-[18px]" data-icon="record_voice_over">record_voice_over</span>
+<span>Speakers</span>
+</button>
+<button class="text-on-surface-variant hover:text-primary hover:bg-surface-container-low px-4 py-2 rounded-lg text-label-md font-label-md font-medium transition-all shrink-0 flex items-center gap-1.5" type="button">
+<span class="material-symbols-outlined text-[18px]" data-icon="apartment">apartment</span>
+<span>Venue &amp; Perks</span>
+</button>
+<button class="text-on-surface-variant hover:text-primary hover:bg-surface-container-low px-4 py-2 rounded-lg font-label-code text-label-code font-medium transition-all shrink-0 flex items-center gap-1.5" type="button">
+<span class="material-symbols-outlined text-[16px] text-secondary" data-icon="data_object">data_object</span>
+<span>API Schema</span>
+</button>
+</nav>
+<!-- Section: Overview Briefing -->
+<section class="bg-surface-container-lowest rounded-xl border border-surface-container-high p-6 shadow-sm">
+<h2 class="text-headline-md font-headline-md text-on-surface mb-3 flex items-center gap-2">
+<span class="material-symbols-outlined text-primary text-[24px]" data-icon="terminal">terminal</span>
+<span>Architectural Overview</span>
+</h2>
+<p class="text-body-md font-body-md text-on-surface-variant leading-relaxed mb-4">
+            The Global Cloud Architecture &amp; Kubernetes Summit gathers 3,500+ infrastructure engineers, distributed systems leads, and SRE professionals. Learn how modern hyper-scale teams manage service mesh latency, orchestrate multi-cloud failover strategies, and scale zero-trust workloads efficiently using automated policy engines.
+          </p>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-3 pt-2">
+<div class="p-3 rounded-lg bg-surface-container-low border border-surface-container-high">
+<span class="font-label-code text-label-code text-secondary font-bold block mb-1">01. ORCHESTRATION</span>
+<p class="text-body-sm font-body-sm text-on-surface">K8s v1.31 native features, eBPF telemetry, and memory profile tracing.</p>
+</div>
+<div class="p-3 rounded-lg bg-surface-container-low border border-surface-container-high">
+<span class="font-label-code text-label-code text-secondary font-bold block mb-1">02. MULTI-REGION</span>
+<p class="text-body-sm font-body-sm text-on-surface">Active-active data layer consistency, Raft protocols, and egress throttling.</p>
+</div>
+<div class="p-3 rounded-lg bg-surface-container-low border border-surface-container-high">
+<span class="font-label-code text-label-code text-secondary font-bold block mb-1">03. ZERO TRUST</span>
+<p class="text-body-sm font-body-sm text-on-surface">SPIFFE/SPIRE workload attestation, cryptographic pod identities, &amp; mTLS.</p>
+</div>
+</div>
+</section>
+<!-- Section: Speaker Line-up Cards -->
+<section class="bg-surface-container-lowest rounded-xl border border-surface-container-high p-6 shadow-sm">
+<div class="flex items-center justify-between mb-5">
+<div>
+<h2 class="text-headline-md font-headline-md text-on-surface">Keynote Speakers &amp; Architects</h2>
+<p class="text-body-sm font-body-sm text-on-surface-variant">Industry practitioners speaking live at the Moscone Center</p>
+</div>
+<span class="font-label-code text-label-code bg-surface-container px-2.5 py-1 rounded text-primary-container">
+              34 Speakers Total
+            </span>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+<!-- Speaker 1 -->
+<div class="p-4 rounded-xl bg-surface-container-low border border-surface-container-high hover:border-primary-fixed-dim transition-all group">
+<div class="flex items-start gap-3.5 mb-3">
+<div class="w-12 h-12 rounded-xl overflow-hidden border border-outline-variant shrink-0 group-hover:ring-2 ring-primary transition-all">
+<img class="w-full h-full object-cover" data-alt="Close up professional portrait of a senior female cloud infrastructure lead engineer with glasses in modern architectural office lighting with cool violet undertones." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCi8O-AeXxovumHSRb44XN9INXVLUHiX5t54_37gtm61RVc6lTYhLraHwCfJop3mkxCMzqbKzGp7N2-Uff-e605vvMv2XLF5NMbAgck7DYSTDGWcKfE4ZiYa11byU5_Dkk_hAgfQbtt2GC89RUUtHk7MrAE2ZDEA_BJrd8_osptfguRLLzObgTiyOdDn3fjB5pagEZQmf5Q6pIsPPcbg3VrFHyoK1dnv5-TxjLXDYFH"/>
+</div>
+<div>
+<h3 class="text-headline-sm font-headline-sm text-on-surface">Elena Rostova, Ph.D.</h3>
+<p class="text-body-sm font-body-sm text-primary font-medium">VP of Infrastructure @ Axiom Cloud</p>
+<p class="font-label-code text-label-code text-outline text-[11px]">@erostova • CNCF Ambassador</p>
+</div>
+</div>
+<div class="bg-surface-container-lowest p-3 rounded-lg border border-surface-container-high">
+<span class="font-label-badge text-label-badge text-secondary uppercase tracking-wider block mb-1">Talk Focus</span>
+<p class="text-body-sm font-body-sm text-on-surface font-medium">"From 10k to 100k Pods: Sub-millisecond Scheduling under Volatile Burst Loads"</p>
+</div>
+</div>
+<!-- Speaker 2 -->
+<div class="p-4 rounded-xl bg-surface-container-low border border-surface-container-high hover:border-primary-fixed-dim transition-all group">
+<div class="flex items-start gap-3.5 mb-3">
+<div class="w-12 h-12 rounded-xl overflow-hidden border border-outline-variant shrink-0 group-hover:ring-2 ring-primary transition-all">
+<img class="w-full h-full object-cover" data-alt="Portrait of an experienced male distributed systems principal architect wearing dark tech pullover against a blurred data-center ambient violet and white lighting backdrop." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDerILXuzhYG1moCtvfzuHeR2QzctXS7peaGJ-nFCEJKnJuPZ6JGlKlPXYcBA-8yEd-fQcAfa6cc8QzEPZi20ghK1yqE9H5dRSi0Gfeen2GauMKxUWMm7MlsCOk58B2XA01KvAzEPiAC-aJMKfFn7Ly6JahA0_g5iGvoiRwvodpt15WQQ0fbdK4LOKwsuwLLjfYYKkZ9arrWbbfpwJP8H-Sbo4LDl-EooyOe1IjDR4d"/>
+</div>
+<div>
+<h3 class="text-headline-sm font-headline-sm text-on-surface">Marcus Vance</h3>
+<p class="text-body-sm font-body-sm text-primary font-medium">Principal Engineer @ HyperScale Mesh</p>
+<p class="font-label-code text-label-code text-outline text-[11px]">@marcus_v • Envoy Contributor</p>
+</div>
+</div>
+<div class="bg-surface-container-lowest p-3 rounded-lg border border-surface-container-high">
+<span class="font-label-badge text-label-badge text-secondary uppercase tracking-wider block mb-1">Talk Focus</span>
+<p class="text-body-sm font-body-sm text-on-surface font-medium">"Deterministic Egress Throttling: Implementing Global Token Bucket via eBPF"</p>
+</div>
+</div>
+<!-- Speaker 3 -->
+<div class="p-4 rounded-xl bg-surface-container-low border border-surface-container-high hover:border-primary-fixed-dim transition-all group">
+<div class="flex items-start gap-3.5 mb-3">
+<div class="w-12 h-12 rounded-xl overflow-hidden border border-outline-variant shrink-0 group-hover:ring-2 ring-primary transition-all">
+<img class="w-full h-full object-cover" data-alt="Portrait of an energetic female technical director smiling in an open technical laboratory setting with clean purple and white tones and deep indigo shadows." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCrK77d5-BRpov5Vt1vmW8E7zc1-xJuKT2JuTqZVooNqQ16QaiD8hWaIwgT0wU4eG-PiwshxYrVUyzOTxIB26lTthj2EQX4TIYkGy-PwMiGU4_aVNbbG_L_G2_JGJ1U0iuC3_tHkFm7PIH6sF3Qv2LmiGxFquUJZ5aJKxKpcBNNGZG4mm34GYQCtKE9dIXAIhoYc9YsoTQsI-g2XnVynfEt7Sm6ONX5moOjBn4ylEoR"/>
+</div>
+<div>
+<h3 class="text-headline-sm font-headline-sm text-on-surface">Devi Chen</h3>
+<p class="text-body-sm font-body-sm text-primary font-medium">Head of Reliability @ GlobalEdge Inc</p>
+<p class="font-label-code text-label-code text-outline text-[11px]">@devichen • OpenTelemetry Gov</p>
+</div>
+</div>
+<div class="bg-surface-container-lowest p-3 rounded-lg border border-surface-container-high">
+<span class="font-label-badge text-label-badge text-secondary uppercase tracking-wider block mb-1">Talk Focus</span>
+<p class="text-body-sm font-body-sm text-on-surface font-medium">"Distributed Trace Synthesis: Taming High-Cardinality Tail Latencies"</p>
+</div>
+</div>
+<!-- Speaker 4 -->
+<div class="p-4 rounded-xl bg-surface-container-low border border-surface-container-high hover:border-primary-fixed-dim transition-all group">
+<div class="flex items-start gap-3.5 mb-3">
+<div class="w-12 h-12 rounded-xl overflow-hidden border border-outline-variant shrink-0 group-hover:ring-2 ring-primary transition-all">
+<img class="w-full h-full object-cover" data-alt="Portrait of a modern cybersecurity architect male with sleek hair against a softly lit minimalist tech workspace featuring deep violet accents." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBturFmJZKSOaPgzH6VueZq24l6hCYLuve2WBmqFArPxJuPyaGTpBpdsCvfN3a8MQjrSJEXlZdlaDoGfnojD9-Nwm9K9GHc4ZENTTrV5zWZB6wB67asa-TRoQS4r-nfkPBC3U6u42IaFtaBJv4l7jrfZdcV9tk05xGEYo2oE5pSUAAGtAdMk1UweeArERStDfLFgbx2aD88TVN4P6Vy2zg483yAQ1COHrevM-LQod0Z"/>
+</div>
+<div>
+<h3 class="text-headline-sm font-headline-sm text-on-surface">Tariq Al-Mansoor</h3>
+<p class="text-body-sm font-body-sm text-primary font-medium">Lead Security Fellow @ ZeroGuard Labs</p>
+<p class="font-label-code text-label-code text-outline text-[11px]">@talmansoor • SIG-Auth Co-lead</p>
+</div>
+</div>
+<div class="bg-surface-container-lowest p-3 rounded-lg border border-surface-container-high">
+<span class="font-label-badge text-label-badge text-secondary uppercase tracking-wider block mb-1">Talk Focus</span>
+<p class="text-body-sm font-body-sm text-on-surface font-medium">"Ephemeral Secret Rotation at Scale: Eliminating Static Credentials Completely"</p>
+</div>
+</div>
+</div>
+</section>
+<!-- Section: Full Schedule Breakdown Timeline -->
+<section class="bg-surface-container-lowest rounded-xl border border-surface-container-high p-6 shadow-sm">
+<div class="flex items-center justify-between mb-6">
+<div>
+<h2 class="text-headline-md font-headline-md text-on-surface">Schedule Breakdown</h2>
+<p class="text-body-sm font-body-sm text-on-surface-variant">Day 1: Oct 14, 2025 • Core Keynotes &amp; Hands-on Tracks</p>
+</div>
+<div class="flex items-center gap-1 bg-surface-container p-1 rounded-lg">
+<button class="bg-surface-container-lowest text-primary font-semibold px-2.5 py-1 rounded text-body-sm shadow-xs">Day 1</button>
+<button class="text-on-surface-variant hover:text-primary px-2.5 py-1 rounded text-body-sm">Day 2</button>
+<button class="text-on-surface-variant hover:text-primary px-2.5 py-1 rounded text-body-sm">Day 3</button>
+</div>
+</div>
+<!-- Vertical Timeline Container -->
+<div class="relative pl-6 space-y-6 before:content-[''] before:absolute before:left-2.5 before:top-2 before:bottom-2 before:w-0.5 before:bg-surface-container-high">
+<!-- Timeline Item 1 -->
+<div class="relative flex items-start gap-4">
+<div class="absolute -left-6 top-1.5 w-5 h-5 rounded-full bg-primary-container border-4 border-surface-container-lowest flex items-center justify-center"></div>
+<div class="flex-1 bg-surface-container-low p-4 rounded-xl border border-surface-container-high">
+<div class="flex flex-wrap items-center justify-between gap-2 mb-1.5">
+<div class="flex items-center gap-2">
+<span class="font-label-code text-label-code text-primary font-bold bg-surface-container px-2 py-0.5 rounded">09:00 AM - 10:30 AM PST</span>
+<span class="font-label-badge text-label-badge text-secondary bg-secondary-fixed/50 px-2 py-0.5 rounded">PLENARY KEYNOTE</span>
+</div>
+<span class="text-body-sm font-body-sm text-outline-variant flex items-center gap-1">
+<span class="material-symbols-outlined text-[16px]" data-icon="location_on">location_on</span>
+                    Main Auditorium A
+                  </span>
+</div>
+<h4 class="text-headline-sm font-headline-sm text-on-surface mb-1">State of Cloud Native: Surviving the Next Decade of Distributed Demands</h4>
+<p class="text-body-sm font-body-sm text-on-surface-variant">Opening keynote with Elena Rostova and special guest maintainers from the CNCF Technical Oversight Committee.</p>
+<div class="mt-3 flex items-center gap-3 text-body-sm font-body-sm text-primary font-medium">
+<span class="flex items-center gap-1">
+<span class="material-symbols-outlined text-[16px]" data-icon="videocam">videocam</span>
+                    Live Streamed
+                  </span>
+<span class="text-outline-variant">•</span>
+<span>Q&amp;A via Slido #K8S-2025</span>
+</div>
+</div>
+</div>
+<!-- Timeline Item 2 -->
+<div class="relative flex items-start gap-4">
+<div class="absolute -left-6 top-1.5 w-5 h-5 rounded-full bg-surface-container-highest border-4 border-surface-container-lowest"></div>
+<div class="flex-1 bg-surface-container-lowest p-4 rounded-xl border border-surface-container-high">
+<div class="flex flex-wrap items-center justify-between gap-2 mb-1.5">
+<div class="flex items-center gap-2">
+<span class="font-label-code text-label-code text-primary font-bold bg-surface-container px-2 py-0.5 rounded">11:30 AM - 01:00 PM PST</span>
+<span class="font-label-badge text-label-badge text-primary-container bg-surface-container px-2 py-0.5 rounded">BREAKOUT SESSIONS</span>
+</div>
+<span class="text-body-sm font-body-sm text-outline-variant flex items-center gap-1">
+<span class="material-symbols-outlined text-[16px]" data-icon="meeting_room">meeting_room</span>
+                    Rooms 201-204
+                  </span>
+</div>
+<h4 class="text-headline-sm font-headline-sm text-on-surface mb-1">Deep Dive Tracks: eBPF Networking vs. Service Meshes</h4>
+<p class="text-body-sm font-body-sm text-on-surface-variant">Concurrent deep dive rooms exploring kernel-level packet inspection, Cilium BPF maps, and Istio ambient mode trade-offs.</p>
+<div class="mt-3 flex flex-wrap gap-2">
+<span class="font-label-code text-label-code text-on-surface-variant bg-surface-container-low px-2 py-0.5 rounded border border-surface-container-high">Track A: eBPF</span>
+<span class="font-label-code text-label-code text-on-surface-variant bg-surface-container-low px-2 py-0.5 rounded border border-surface-container-high">Track B: Service Mesh</span>
+<span class="font-label-code text-label-code text-on-surface-variant bg-surface-container-low px-2 py-0.5 rounded border border-surface-container-high">Track C: Zero Trust</span>
+</div>
+</div>
+</div>
+<!-- Timeline Item 3 -->
+<div class="relative flex items-start gap-4">
+<div class="absolute -left-6 top-1.5 w-5 h-5 rounded-full bg-secondary-container border-4 border-surface-container-lowest"></div>
+<div class="flex-1 bg-surface-container-low p-4 rounded-xl border border-surface-container-high">
+<div class="flex flex-wrap items-center justify-between gap-2 mb-1.5">
+<div class="flex items-center gap-2">
+<span class="font-label-code text-label-code text-primary font-bold bg-surface-container px-2 py-0.5 rounded">02:00 PM - 04:30 PM PST</span>
+<span class="font-label-badge text-label-badge text-secondary bg-secondary-fixed/50 px-2 py-0.5 rounded">INTERACTIVE LABS</span>
+</div>
+<span class="text-body-sm font-body-sm text-outline-variant flex items-center gap-1">
+<span class="material-symbols-outlined text-[16px]" data-icon="laptop_chromebook">laptop_chromebook</span>
+                    Hands-on Arena 3
+                  </span>
+</div>
+<h4 class="text-headline-sm font-headline-sm text-on-surface mb-1">Live Multi-Region Disaster Recovery Chaos Simulation</h4>
+<p class="text-body-sm font-body-sm text-on-surface-variant">Engineers will compete in real-time to repair a simulated multi-region outage injected with simulated BGP routing loops and corrupted etcd snapshots.</p>
+<div class="mt-3 flex items-center gap-2">
+<span class="font-label-badge text-label-badge bg-surface-container-highest text-primary-container px-2 py-0.5 rounded flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]" data-icon="badge">badge</span>
+                    Preregistration Required
+                  </span>
+<span class="text-body-sm font-body-sm text-outline">Terminal instances provided</span>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- REST API Spec Preview Card (Developer Alignment) -->
+<section class="bg-surface-container-lowest rounded-xl border border-surface-container-high p-6 shadow-sm">
+<div class="flex items-center justify-between mb-3">
+<div class="flex items-center gap-2">
+<span class="font-label-code text-label-code bg-surface-container text-primary-container px-2 py-1 rounded font-bold">GET</span>
+<span class="font-label-code text-label-code text-secondary font-bold">/api/events/ev-9481</span>
+</div>
+<span class="font-label-code text-label-code text-on-surface-variant">Schema v1.4</span>
+</div>
+<p class="text-body-sm font-body-sm text-on-surface-variant mb-3">Programmatic clients can inspect quotas, speaker bios, and real-time seat availability via standard REST JSON endpoints.</p>
+<pre class="bg-inverse-surface text-inverse-on-surface p-4 rounded-lg font-label-code text-label-code overflow-x-auto text-[12px] leading-relaxed"><code>{
+  "event_id": "ev-9481",
+  "title": "Global Cloud Architecture &amp; Kubernetes Summit 2025",
+  "capacity": 3500,
+  "registered_count": 3482,
+  "status": "OPEN_LIMITED",
+  "allowed_registration_methods": ["POST /api/registrations"],
+  "requires_approval": false
+}</code></pre>
+</section>
+</section>
+<!-- ================= RIGHT / STICKY REGISTRATION SIDEBAR (5 cols desktop) ================= -->
+<aside class="lg:col-span-5 xl:col-span-4 sticky top-20 flex flex-col gap-6">
+<!-- Registration Action Card -->
+<div class="bg-surface-container-lowest rounded-xl border-2 border-surface-container-high shadow-lg p-6 relative">
+<!-- Top Badge & Remaining Counter -->
+<div class="flex items-center justify-between mb-4">
+<span class="font-label-badge text-label-badge text-primary-container bg-surface-container px-2.5 py-1 rounded uppercase tracking-wider">
+              Registration Pass
+            </span>
+<div class="inline-flex items-center gap-1.5 font-label-code text-label-code text-secondary font-bold bg-secondary-fixed/50 px-2.5 py-1 rounded-full animate-pulse">
+<span class="w-2 h-2 rounded-full bg-secondary"></span>
+<span>Only 18 passes remaining</span>
+</div>
+</div>
+<!-- Pricing Tier Selector -->
+<div class="mb-5">
+<label class="block text-body-sm font-body-sm text-on-surface-variant font-medium mb-2">Select Registration Tier</label>
+<div class="grid grid-cols-2 gap-2 p-1 bg-surface-container rounded-lg">
+<!-- Free Dev Pass Option -->
+<label class="flex flex-col p-2.5 rounded-md cursor-pointer border border-primary bg-surface-container-lowest shadow-sm transition-all">
+<div class="flex items-center justify-between mb-1">
+<span class="font-label-md text-label-md font-bold text-primary">Dev Pass</span>
+<input checked="" class="text-primary focus:ring-primary h-4 w-4" name="ticket_tier" type="radio" value="DEV_PASS"/>
+</div>
+<span class="font-display-lg text-[22px] leading-6 font-bold text-on-surface">$0</span>
+<span class="text-body-sm font-body-sm text-outline mt-0.5">Free Dev Tier</span>
+</label>
+<!-- VIP Pass Option -->
+<label class="flex flex-col p-2.5 rounded-md cursor-pointer border border-transparent hover:border-surface-container-high bg-transparent transition-all">
+<div class="flex items-center justify-between mb-1">
+<span class="font-label-md text-label-md font-bold text-on-surface">VIP All-Access</span>
+<input class="text-primary focus:ring-primary h-4 w-4" name="ticket_tier" type="radio" value="VIP_PASS"/>
+</div>
+<span class="font-display-lg text-[22px] leading-6 font-bold text-on-surface">$499</span>
+<span class="text-body-sm font-body-sm text-outline mt-0.5">Workshops + VIP Lounge</span>
+</label>
+</div>
+</div>
+<!-- Registration Form -->
+<form class="space-y-3.5" onsubmit="event.preventDefault(); document.getElementById('api-response-panel').classList.remove('hidden');">
+<div>
+<label class="block text-body-sm font-body-sm text-on-surface font-medium mb-1" for="reg-fullname">Full Name *</label>
+<input class="w-full rounded-lg border border-outline-variant/80 bg-surface-container-lowest px-3 py-2 text-body-md font-body-md text-on-surface focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all" id="reg-fullname" placeholder="Jane Doe" required="" type="text" value="Alex Rivera"/>
+</div>
+<div>
+<label class="block text-body-sm font-body-sm text-on-surface font-medium mb-1" for="reg-email">Email Address *</label>
+<input class="w-full rounded-lg border border-outline-variant/80 bg-surface-container-lowest px-3 py-2 text-body-md font-body-md text-on-surface focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all" id="reg-email" placeholder="developer@company.com" required="" type="email" value="alex.rivera@cloudscale.io"/>
+</div>
+<div class="grid grid-cols-2 gap-2">
+<div>
+<label class="block text-body-sm font-body-sm text-on-surface font-medium mb-1" for="reg-role">Role *</label>
+<input class="w-full rounded-lg border border-outline-variant/80 bg-surface-container-lowest px-3 py-2 text-body-md font-body-md text-on-surface focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all" id="reg-role" placeholder="Role title" required="" type="text" value="Site Reliability Eng"/>
+</div>
+<div>
+<label class="block text-body-sm font-body-sm text-on-surface font-medium mb-1" for="reg-org">Organization *</label>
+<input class="w-full rounded-lg border border-outline-variant/80 bg-surface-container-lowest px-3 py-2 text-body-md font-body-md text-on-surface focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all" id="reg-org" placeholder="Company / University" required="" type="text" value="ScaleWave Systems"/>
+</div>
+</div>
+<div>
+<label class="block text-body-sm font-body-sm text-on-surface font-medium mb-1" for="reg-type">Attendee Type</label>
+<select class="w-full rounded-lg border border-outline-variant/80 bg-surface-container-lowest px-3 py-2 text-body-md font-body-md text-on-surface focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all" id="reg-type">
+<option selected="" value="in_person">In-Person Attendee (Moscone Center)</option>
+<option value="virtual_live">Virtual Live Stream Only</option>
+<option value="press_media">Accredited Press / Media</option>
+<option value="speaker_guest">Invited Speaker Guest</option>
+</select>
+</div>
+<!-- Prominent CTA Button with Explicit POST Endpoint Notation -->
+<button class="w-full mt-2 bg-primary hover:bg-primary-container text-on-primary font-label-md text-label-md py-3 px-4 rounded-lg font-semibold shadow-md hover:shadow-lg transition-all active:scale-98 flex flex-col items-center justify-center gap-0.5" type="submit">
+<span class="flex items-center gap-1.5 text-base">
+<span>Complete Registration</span>
+<span class="material-symbols-outlined text-[18px]" data-icon="arrow_forward">arrow_forward</span>
+</span>
+<span class="font-label-code text-[11px] text-inverse-primary tracking-wide">POST /api/registrations</span>
+</button>
+</form>
+<!-- Interactive Simulated API Response Notice -->
+<div class="mt-4 pt-4 border-t border-surface-container-high" id="api-response-panel">
+<div class="flex items-center justify-between mb-2">
+<span class="font-label-code text-label-code text-on-surface font-semibold flex items-center gap-1.5">
+<span class="material-symbols-outlined text-[16px] text-primary" data-icon="sync_alt">sync_alt</span>
+                Simulated API Payload
+              </span>
+<span class="text-body-sm font-body-sm text-outline">Click toggle:</span>
+</div>
+<!-- Response Simulation Switcher -->
+<div class="grid grid-cols-2 gap-1.5 mb-2">
+<button class="py-1 px-2 rounded bg-surface-container text-primary font-label-code text-[11px] font-bold text-center border border-outline-variant/40 hover:bg-surface-container-high transition-colors" onclick="document.getElementById('resp-201').classList.remove('hidden'); document.getElementById('resp-409').classList.add('hidden');" type="button">
+                Mock 201 Created
+              </button>
+<button class="py-1 px-2 rounded bg-surface-container text-error font-label-code text-[11px] font-bold text-center border border-outline-variant/40 hover:bg-surface-container-high transition-colors" onclick="document.getElementById('resp-409').classList.remove('hidden'); document.getElementById('resp-201').classList.add('hidden');" type="button">
+                Mock 409 Conflict
+              </button>
+</div>
+<!-- 201 Created Box -->
+<div class="p-3 rounded-lg bg-emerald-50 border border-emerald-200 text-emerald-950 font-label-code text-[11px] leading-relaxed" id="resp-201">
+<div class="flex items-center justify-between font-bold text-emerald-800 mb-1">
+<span>STATUS: 201 CREATED</span>
+<span>Latency: 42ms</span>
+</div>
+<p class="text-emerald-900 font-mono">registration_id: "reg-99120-x4f"</p>
+<p class="text-emerald-800">confirmation_email: sent</p>
+<p class="text-emerald-800">jwt_ticket_token: valid_verified</p>
+</div>
+<!-- 409 Conflict Box -->
+<div class="hidden p-3 rounded-lg bg-rose-50 border border-rose-200 text-rose-950 font-label-code text-[11px] leading-relaxed" id="resp-409">
+<div class="flex items-center justify-between font-bold text-rose-800 mb-1">
+<span>STATUS: 409 CONFLICT</span>
+<span>Err Code: ERR_DUPLICATE_REG</span>
+</div>
+<p class="text-rose-900 font-mono">message: "Email already holds an active pass for ev-9481."</p>
+<p class="text-rose-800">action: "Retrieve pass via /api/registrations/my"</p>
+</div>
+</div>
+<!-- What's Included Checklist -->
+<div class="mt-5 pt-4 border-t border-surface-container-high">
+<h4 class="font-headline-sm text-[15px] font-bold text-on-surface mb-3 flex items-center gap-1.5">
+<span class="material-symbols-outlined text-primary text-[18px]" data-icon="verified">verified</span>
+<span>What's included in Dev Pass</span>
+</h4>
+<ul class="space-y-2 text-body-sm font-body-sm text-on-surface-variant">
+<li class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary text-[16px]" data-icon="check_circle">check_circle</span>
+<span>Full access to 3-day Keynote streams &amp; recordings</span>
+</li>
+<li class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary text-[16px]" data-icon="check_circle">check_circle</span>
+<span>Private Discord Architecture channels &amp; speaker chat</span>
+</li>
+<li class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary text-[16px]" data-icon="check_circle">check_circle</span>
+<span>Digital attendee badge &amp; verifiable credentials</span>
+</li>
+<li class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary text-[16px]" data-icon="check_circle">check_circle</span>
+<span>On-site lunch voucher &amp; networking reception access</span>
+</li>
+</ul>
+</div>
+</div>
+<!-- Secondary Support / API Sync Help Card -->
+<div class="bg-surface-container-low rounded-xl border border-surface-container-high p-4 flex items-center gap-3">
+<div class="w-10 h-10 rounded-lg bg-surface-container flex items-center justify-center text-primary shrink-0">
+<span class="material-symbols-outlined text-[20px]" data-icon="terminal">terminal</span>
+</div>
+<div class="flex-1">
+<p class="font-label-md text-label-md text-on-surface font-semibold">Bulk Team Provisioning?</p>
+<p class="text-body-sm font-body-sm text-on-surface-variant">Deploy multiple passes using curl script or organization token.</p>
+</div>
+<a class="font-label-code text-label-code text-primary font-bold hover:underline shrink-0" href="#">Docs →</a>
+</div>
+</aside>
+</div>
+</main>
+<!-- Global Footer -->
+<footer class="bg-surface-container-lowest border-t border-surface-container-high mt-16 py-8">
+<div class="max-w-[1280px] mx-auto px-space-md md:px-margin-tablet lg:px-margin-desktop flex flex-col md:flex-row items-center justify-between gap-4">
+<div class="flex items-center gap-2">
+<span class="text-primary font-bold font-headline-sm">Event Pulse</span>
+<span class="text-outline-variant">•</span>
+<span class="font-label-code text-label-code text-on-surface-variant">v1.4.0 • 200 OK</span>
+</div>
+<p class="text-body-sm font-body-sm text-on-surface-variant text-center">
+        Empowering enterprise event architectures, automated developer ticketing, and REST coordination.
+      </p>
+<div class="flex items-center gap-4 text-label-md font-label-md">
+<a class="text-on-surface-variant hover:text-primary transition-colors" href="#">Documentation</a>
+<a class="text-on-surface-variant hover:text-primary transition-colors" href="#">System Status</a>
+<a class="text-on-surface-variant hover:text-primary transition-colors" href="#">Privacy</a>
+</div>
+</div>
+</footer>
+</body></html>

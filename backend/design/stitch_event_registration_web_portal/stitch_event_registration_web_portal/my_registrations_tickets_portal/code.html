@@ -1,0 +1,690 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Event Pulse - My Registrations Portal</title>
+<!-- Material Symbols Outlined -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Google Fonts: Plus Jakarta Sans, Inter, JetBrains Mono -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&amp;family=JetBrains+Mono:wght@400;500;600;700&amp;family=Plus+Jakarta+Sans:wght@600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS v3 -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          "colors": {
+            "surface": "#fcf8ff",
+            "surface-container-highest": "#e3dfff",
+            "on-surface": "#181445",
+            "primary-container": "#4a24b2",
+            "on-tertiary-fixed-variant": "#464555",
+            "inverse-primary": "#ccbeff",
+            "on-primary-container": "#b9a6ff",
+            "on-tertiary-fixed": "#1b1a29",
+            "inverse-surface": "#2d2a5b",
+            "error": "#ba1a1a",
+            "on-error": "#ffffff",
+            "tertiary-container": "#454354",
+            "primary-fixed-dim": "#ccbeff",
+            "tertiary-fixed": "#e4e0f5",
+            "inverse-on-surface": "#f3eeff",
+            "error-container": "#ffdad6",
+            "on-secondary-container": "#571a00",
+            "on-tertiary": "#ffffff",
+            "on-primary": "#ffffff",
+            "surface-container-lowest": "#ffffff",
+            "on-secondary-fixed": "#370e00",
+            "primary": "#330093",
+            "on-background": "#181445",
+            "background": "#fcf8ff",
+            "surface-container-high": "#e9e5ff",
+            "on-error-container": "#93000a",
+            "on-tertiary-container": "#b3b0c4",
+            "surface-bright": "#fcf8ff",
+            "surface-container-low": "#f6f2ff",
+            "primary-fixed": "#e7deff",
+            "surface-container": "#efebff",
+            "surface-tint": "#6444cd",
+            "outline-variant": "#cac4d6",
+            "on-surface-variant": "#484554",
+            "surface-dim": "#dad6ff",
+            "tertiary-fixed-dim": "#c7c4d8",
+            "on-secondary": "#ffffff",
+            "on-secondary-fixed-variant": "#7f2b00",
+            "secondary-fixed": "#ffdbce",
+            "tertiary": "#2e2d3d",
+            "secondary": "#a73a00",
+            "secondary-container": "#fd651e",
+            "outline": "#797585",
+            "on-primary-fixed-variant": "#4c27b4",
+            "surface-variant": "#e3dfff",
+            "on-primary-fixed": "#1e0060",
+            "secondary-fixed-dim": "#ffb599"
+          },
+          "borderRadius": {
+            "DEFAULT": "0.25rem",
+            "lg": "0.5rem",
+            "xl": "0.75rem",
+            "full": "9999px"
+          },
+          "spacing": {
+            "space-md": "1rem",
+            "gutter": "1rem",
+            "space-xl": "2.5rem",
+            "space-sm": "0.5rem",
+            "margin": "1rem",
+            "space-xs": "0.25rem",
+            "margin-tablet": "2rem",
+            "gutter-desktop": "1.5rem",
+            "margin-desktop": "3rem",
+            "space-lg": "1.5rem"
+          },
+          "fontFamily": {
+            "label-code": ["JetBrains Mono"],
+            "display-lg": ["Plus Jakarta Sans"],
+            "headline-lg": ["Plus Jakarta Sans"],
+            "body-lg": ["Inter"],
+            "headline-sm": ["Plus Jakarta Sans"],
+            "display-lg-mobile": ["Plus Jakarta Sans"],
+            "body-sm": ["Inter"],
+            "label-md": ["Inter"],
+            "headline-md": ["Plus Jakarta Sans"],
+            "body-md": ["Inter"],
+            "label-badge": ["Plus Jakarta Sans"]
+          },
+          "fontSize": {
+            "label-code": ["13px", {"lineHeight": "18px", "fontWeight": "600"}],
+            "display-lg": ["40px", {"lineHeight": "48px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+            "headline-lg": ["28px", {"lineHeight": "36px", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+            "body-lg": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+            "headline-sm": ["18px", {"lineHeight": "24px", "fontWeight": "600"}],
+            "display-lg-mobile": ["30px", {"lineHeight": "38px", "letterSpacing": "-0.01em", "fontWeight": "700"}],
+            "body-sm": ["12px", {"lineHeight": "16px", "fontWeight": "400"}],
+            "label-md": ["14px", {"lineHeight": "20px", "fontWeight": "500"}],
+            "headline-md": ["22px", {"lineHeight": "28px", "fontWeight": "600"}],
+            "body-md": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+            "label-badge": ["12px", {"lineHeight": "16px", "letterSpacing": "0.04em", "fontWeight": "700"}]
+          }
+        }
+      }
+    }
+  </script>
+</head>
+<body class="bg-background text-on-surface antialiased min-h-screen selection:bg-surface-container-highest selection:text-primary">
+<!-- TOPNAVBAR (Shared Component Implementation) -->
+<header class="w-full bg-surface-container-lowest sticky top-0 z-50 shadow-sm border-b border-surface-container-high">
+<div class="flex justify-between items-center w-full px-space-md md:px-margin-tablet lg:px-margin-desktop max-w-[1280px] mx-auto h-16">
+<!-- Brand & Left Search -->
+<div class="flex items-center gap-space-lg">
+<a class="text-headline-sm font-headline-sm font-bold text-primary flex items-center gap-space-xs tracking-tight" href="#">
+<span class="material-symbols-outlined text-primary text-[26px]">stream</span>
+<span>Event Pulse</span>
+</a>
+<!-- Search Bar (on_left as per JSON) -->
+<div class="hidden lg:flex items-center bg-surface-container-low px-space-sm py-1.5 rounded-lg border border-outline-variant/40 w-64 focus-within:border-primary-container transition-colors">
+<span class="material-symbols-outlined text-outline text-[18px]">search</span>
+<input class="bg-transparent border-none text-body-md font-body-md text-on-surface focus:outline-none focus:ring-0 ml-1.5 w-full placeholder:text-outline/70" placeholder="Search registered events..." type="text"/>
+<span class="text-label-code font-label-code text-on-surface-variant bg-surface-container-highest px-1 py-0.5 rounded text-[10px]">⌘K</span>
+</div>
+</div>
+<!-- Navigation Links (Active mapping: 'My Registrations' matches current intent) -->
+<nav class="hidden md:flex items-center gap-space-lg h-full">
+<a class="text-on-surface-variant hover:bg-surface-container hover:text-primary rounded-lg transition-colors px-2 py-1 text-label-md font-label-md font-medium" href="#">Events</a>
+<a class="text-primary font-semibold border-b-2 border-primary pb-1 text-label-md font-label-md flex items-center gap-1.5 h-full pt-1" href="#">
+<span>My Registrations</span>
+<span class="bg-primary-container text-on-primary text-[10px] font-label-code px-1.5 py-0.5 rounded-full font-bold">3</span>
+</a>
+<a class="text-on-surface-variant hover:bg-surface-container hover:text-primary rounded-lg transition-colors px-2 py-1 text-label-md font-label-md font-medium" href="#">Organizer Hub</a>
+<a class="text-on-surface-variant hover:bg-surface-container hover:text-primary rounded-lg transition-colors px-2 py-1 text-label-md font-label-md font-medium" href="#">API Docs</a>
+</nav>
+<!-- Trailing Action Cluster -->
+<div class="flex items-center gap-space-sm">
+<button class="hidden sm:flex items-center gap-1 px-3 py-1.5 rounded-lg border border-outline-variant/60 text-primary hover:bg-surface-container transition-all active:scale-95 text-label-md font-label-md font-medium">
+<span class="material-symbols-outlined text-[18px]">terminal</span>
+<span>API Console</span>
+</button>
+<button class="bg-primary-container hover:bg-primary text-on-primary px-3.5 py-1.5 rounded-lg font-label-md text-label-md font-medium transition-all active:scale-95 shadow-sm hidden sm:inline-flex items-center gap-1">
+<span class="material-symbols-outlined text-[18px]">add</span>
+<span>Create Event</span>
+</button>
+<div class="h-6 w-px bg-surface-container-high mx-1 hidden sm:block"></div>
+<button aria-label="Notifications" class="p-2 text-on-surface-variant hover:bg-surface-container hover:text-primary rounded-lg transition-colors relative">
+<span class="material-symbols-outlined text-[20px]">notifications</span>
+<span class="absolute top-1.5 right-1.5 w-2 h-2 bg-secondary-container rounded-full"></span>
+</button>
+<div class="flex items-center gap-2 pl-1 cursor-pointer">
+<div class="w-8 h-8 rounded-full bg-surface-container-highest border border-surface-tint/20 flex items-center justify-center font-headline-sm text-primary font-bold text-xs" title="User profile avatar">
+            AR
+          </div>
+</div>
+</div>
+</div>
+</header>
+<!-- MAIN VIEWPORT CANVAS -->
+<main class="max-w-[1280px] mx-auto px-space-md md:px-margin-tablet lg:px-margin-desktop py-space-lg space-y-space-lg">
+<!-- USER PROFILE SUMMARY HEADER & STATS BAR -->
+<div class="bg-surface-container-lowest border border-outline-variant/30 rounded-xl p-space-md md:p-space-lg shadow-sm">
+<div class="flex flex-col md:flex-row md:items-center justify-between gap-space-md">
+<!-- Profile Identity Block -->
+<div class="flex items-start md:items-center gap-space-md">
+<div class="w-14 h-14 rounded-xl bg-surface-container-high border-2 border-primary/20 flex items-center justify-center text-primary font-headline-md font-bold shrink-0 shadow-inner">
+            AR
+          </div>
+<div>
+<div class="flex flex-wrap items-center gap-2">
+<h1 class="text-headline-md font-headline-md text-on-surface">Alex Rivera</h1>
+<span class="bg-surface-container text-primary font-label-code text-label-code px-2 py-0.5 rounded border border-outline-variant/30">usr_88204</span>
+<span class="bg-primary-container text-on-primary font-label-badge text-label-badge px-2 py-0.5 rounded-full flex items-center gap-1">
+<span class="material-symbols-outlined text-[13px]" data-weight="fill" style="font-variation-settings: 'FILL' 1;">verified</span>
+                Verified Developer
+              </span>
+</div>
+<p class="text-body-md font-body-md text-on-surface-variant flex items-center gap-2 mt-0.5">
+<span>alex.rivera@devpulse.io</span>
+<span>•</span>
+<span class="inline-flex items-center gap-1 text-on-tertiary-fixed-variant">
+<span class="material-symbols-outlined text-[15px]">location_on</span>
+                San Francisco, CA (PST)
+              </span>
+</p>
+</div>
+</div>
+<!-- Metric Badges -->
+<div class="flex items-center gap-space-sm self-start md:self-auto border-t md:border-t-0 pt-3 md:pt-0 border-surface-container">
+<div class="bg-surface-container-low px-4 py-2 rounded-lg border border-surface-container-high">
+<span class="block text-body-sm font-body-sm text-on-surface-variant uppercase tracking-wider font-semibold">Active Registrations</span>
+<span class="text-headline-sm font-headline-sm text-primary font-bold">3 Active Registrations</span>
+</div>
+<div class="bg-surface-container-low px-4 py-2 rounded-lg border border-surface-container-high">
+<span class="block text-body-sm font-body-sm text-on-surface-variant uppercase tracking-wider font-semibold">Credits / Access</span>
+<span class="text-headline-sm font-headline-sm text-on-surface font-bold">All-Access Pass</span>
+</div>
+</div>
+</div>
+</div>
+<!-- INTERACTIVE REST API BANNER -->
+<div class="bg-surface-container-lowest border border-outline-variant/40 rounded-xl p-3.5 shadow-sm flex flex-col md:flex-row md:items-center justify-between gap-3 text-label-code font-label-code">
+<div class="flex items-center flex-wrap gap-2.5">
+<span class="text-primary font-bold bg-surface-container px-2 py-0.5 rounded border border-outline-variant/30 text-xs tracking-wide">
+          GET
+        </span>
+<span class="text-secondary font-bold tracking-tight text-xs md:text-sm">
+          /api/me/registrations?status=confirmed&amp;page=1
+        </span>
+<span class="bg-surface-container px-2 py-0.5 rounded-full text-xs text-on-surface-variant border border-outline-variant/20 flex items-center gap-1">
+<span class="inline-block w-2 h-2 rounded-full bg-primary-container"></span>
+<span>cache: HIT</span>
+</span>
+</div>
+<div class="flex items-center gap-3 self-end md:self-auto">
+<div class="flex items-center gap-1.5 bg-surface-container-low px-2.5 py-1 rounded text-xs border border-outline-variant/30">
+<span class="w-2 h-2 rounded-full bg-primary-container animate-pulse"></span>
+<span class="font-bold text-primary">200 OK</span>
+<span class="text-outline">|</span>
+<span class="text-on-surface-variant">18ms</span>
+</div>
+<button class="text-xs text-primary hover:bg-surface-container px-2 py-1 rounded transition-colors flex items-center gap-1 border border-outline-variant/30" title="Inspect Raw JSON Payload">
+<span class="material-symbols-outlined text-[15px]">code</span>
+<span>View JSON</span>
+</button>
+</div>
+</div>
+<!-- TABBED FILTERS & CONTENT GRID -->
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-space-lg">
+<!-- LEFT 8-COLUMN MAIN REGISTRATIONS STREAM -->
+<section class="lg:col-span-8 space-y-space-md">
+<!-- Segmented Tab Bar & Action Row -->
+<div class="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-space-sm bg-surface-container-low p-1.5 rounded-xl border border-surface-container-high">
+<div class="flex items-center gap-1">
+<button class="bg-surface-container-lowest text-primary font-semibold shadow-sm px-3.5 py-1.5 rounded-lg text-label-md font-label-md flex items-center gap-1.5 transition-all">
+<span>Upcoming</span>
+<span class="bg-primary text-on-primary text-[11px] font-label-code font-bold px-1.5 py-0.2 rounded-full">3</span>
+</button>
+<button class="text-on-surface-variant hover:text-on-surface px-3.5 py-1.5 rounded-lg text-label-md font-label-md transition-colors flex items-center gap-1.5">
+<span>Past Events</span>
+<span class="text-outline text-label-code text-[11px] font-medium">12</span>
+</button>
+<button class="text-on-surface-variant hover:text-on-surface px-3.5 py-1.5 rounded-lg text-label-md font-label-md transition-colors flex items-center gap-1.5">
+<span>Waitlist</span>
+<span class="text-outline text-label-code text-[11px] font-medium">0</span>
+</button>
+</div>
+<div class="flex items-center gap-2 px-2 self-end sm:self-auto">
+<span class="text-body-sm font-body-sm text-outline">Filter by:</span>
+<select class="bg-surface-container-lowest border border-outline-variant/50 text-body-sm font-body-sm text-on-surface rounded-lg py-1 px-2 focus:ring-1 focus:ring-primary focus:border-primary">
+<option>Date: Earliest First</option>
+<option>Alphabetical</option>
+<option>In-Person First</option>
+</select>
+</div>
+</div>
+<!-- TICKET CARD 1: Summit 2025 (Featured with Scannable QR pass) -->
+<article class="bg-surface-container-lowest border border-outline-variant/40 rounded-xl overflow-hidden shadow-sm hover:shadow-md transition-all">
+<div class="p-space-md md:p-space-lg">
+<div class="flex flex-col md:flex-row gap-space-md justify-between items-start">
+<!-- Left Details -->
+<div class="space-y-space-sm flex-1">
+<div class="flex flex-wrap items-center gap-2">
+<span class="bg-surface-container text-primary text-label-badge font-label-badge px-2.5 py-0.5 rounded-full uppercase tracking-wider font-bold border border-primary/20">
+                    Confirmed
+                  </span>
+<span class="text-label-code font-label-code text-on-surface-variant bg-surface-container-low px-2 py-0.5 rounded border border-outline-variant/30 text-xs">
+                    #REG-77402
+                  </span>
+<span class="bg-surface-container-low text-secondary font-label-code text-xs px-2 py-0.5 rounded border border-outline-variant/30">
+                    VIP TIER 1
+                  </span>
+</div>
+<div>
+<h2 class="text-headline-md font-headline-md text-on-surface hover:text-primary transition-colors cursor-pointer">
+                    Global Cloud Architecture &amp; Kubernetes Summit 2025
+                  </h2>
+<p class="text-body-md font-body-md text-on-surface-variant mt-1">
+                    Moscone Center South Hall, 747 Howard St, San Francisco &amp; Global Hybrid Livestream
+                  </p>
+</div>
+<!-- Event Details Grid -->
+<div class="grid grid-cols-2 sm:grid-cols-3 gap-space-sm pt-2 text-body-sm font-body-sm text-on-surface">
+<div class="flex items-center gap-2 bg-surface-container-low/60 p-2 rounded-lg">
+<span class="material-symbols-outlined text-primary text-[20px]">calendar_month</span>
+<div>
+<span class="block text-[11px] text-outline uppercase font-semibold">Date</span>
+<span class="font-medium text-on-surface">Oct 14, 2025</span>
+</div>
+</div>
+<div class="flex items-center gap-2 bg-surface-container-low/60 p-2 rounded-lg">
+<span class="material-symbols-outlined text-primary text-[20px]">schedule</span>
+<div>
+<span class="block text-[11px] text-outline uppercase font-semibold">Time</span>
+<span class="font-medium text-on-surface">09:00 AM PST</span>
+</div>
+</div>
+<div class="flex items-center gap-2 bg-surface-container-low/60 p-2 rounded-lg col-span-2 sm:col-span-1">
+<span class="material-symbols-outlined text-primary text-[20px]">badge</span>
+<div>
+<span class="block text-[11px] text-outline uppercase font-semibold">Seat / Pass</span>
+<span class="font-medium text-on-surface">Reserved (A-24)</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Right: Simulated Scannable QR Code Pass -->
+<div class="bg-surface-container-low border border-outline-variant/40 rounded-xl p-3 flex flex-col items-center justify-center shrink-0 w-full md:w-44 text-center">
+<div class="w-28 h-28 bg-surface-container-lowest border border-outline-variant/40 p-2 rounded-lg flex items-center justify-center shadow-inner relative group cursor-pointer">
+<!-- Abstract SVG Matrix representation of a QR Code -->
+<svg class="w-full h-full text-on-surface" fill="currentColor" viewbox="0 0 100 100">
+<rect fill="currentColor" height="28" rx="2" width="28" x="5" y="5"></rect>
+<rect fill="white" height="18" width="18" x="10" y="10"></rect>
+<rect fill="currentColor" height="10" width="10" x="14" y="14"></rect>
+<rect fill="currentColor" height="28" rx="2" width="28" x="67" y="5"></rect>
+<rect fill="white" height="18" width="18" x="72" y="10"></rect>
+<rect fill="currentColor" height="10" width="10" x="76" y="14"></rect>
+<rect fill="currentColor" height="28" rx="2" width="28" x="5" y="67"></rect>
+<rect fill="white" height="18" width="18" x="10" y="72"></rect>
+<rect fill="currentColor" height="10" width="10" x="14" y="76"></rect>
+<!-- Random pixel grid clusters -->
+<rect height="8" width="8" x="38" y="8"></rect>
+<rect height="6" width="10" x="50" y="14"></rect>
+<rect height="10" width="6" x="40" y="24"></rect>
+<rect height="12" width="12" x="50" y="38"></rect>
+<rect height="8" width="10" x="8" y="42"></rect>
+<rect height="14" width="8" x="24" y="42"></rect>
+<rect height="10" width="10" x="68" y="42"></rect>
+<rect height="14" width="8" x="84" y="44"></rect>
+<rect height="6" width="14" x="42" y="64"></rect>
+<rect height="16" width="8" x="42" y="76"></rect>
+<rect height="12" width="12" x="66" y="68"></rect>
+<rect height="10" width="10" x="82" y="74"></rect>
+</svg>
+<div class="absolute inset-0 bg-primary/10 rounded-lg opacity-0 group-hover:opacity-100 flex items-center justify-center transition-opacity backdrop-blur-[1px]">
+<span class="material-symbols-outlined text-primary text-xl">zoom_in</span>
+</div>
+</div>
+<span class="text-label-code font-label-code text-[11px] text-outline-variant text-on-surface-variant font-bold mt-2 tracking-widest">
+                  PASS-V4-9921
+                </span>
+<span class="text-[10px] text-outline uppercase font-semibold">Tap to Enlarge</span>
+</div>
+</div>
+<!-- Card Actions Footer -->
+<div class="mt-space-md pt-space-sm border-t border-surface-container flex flex-wrap items-center justify-between gap-2">
+<div class="flex flex-wrap items-center gap-2">
+<button class="px-3 py-1.5 rounded-lg border border-outline-variant/60 hover:bg-surface-container text-primary font-label-md text-label-md font-medium transition-colors flex items-center gap-1.5">
+<span class="material-symbols-outlined text-[18px]">calendar_add_on</span>
+<span>Add to Calendar</span>
+</button>
+<button class="px-3 py-1.5 rounded-lg border border-outline-variant/60 hover:bg-surface-container text-primary font-label-md text-label-md font-medium transition-colors flex items-center gap-1.5">
+<span class="material-symbols-outlined text-[18px]">picture_as_pdf</span>
+<span>View Ticket / PDF</span>
+</button>
+</div>
+<div class="flex items-center gap-2">
+<button class="px-3 py-1.5 rounded-lg text-on-surface-variant hover:text-primary hover:bg-surface-container transition-colors font-label-md text-label-md font-medium flex items-center gap-1">
+<span class="material-symbols-outlined text-[18px]">settings</span>
+<span>Manage Registration</span>
+</button>
+</div>
+</div>
+</div>
+</article>
+<!-- TICKET CARD 2: NextGen React & TypeScript Masterclass (Virtual Stream + Countdown) -->
+<article class="bg-surface-container-lowest border border-outline-variant/40 rounded-xl overflow-hidden shadow-sm hover:shadow-md transition-all">
+<div class="p-space-md md:p-space-lg">
+<div class="flex flex-col md:flex-row gap-space-md justify-between items-start">
+<div class="space-y-space-sm flex-1">
+<div class="flex flex-wrap items-center gap-2">
+<span class="bg-surface-container text-primary text-label-badge font-label-badge px-2.5 py-0.5 rounded-full uppercase tracking-wider font-bold border border-primary/20">
+                    Confirmed
+                  </span>
+<span class="text-label-code font-label-code text-on-surface-variant bg-surface-container-low px-2 py-0.5 rounded border border-outline-variant/30 text-xs">
+                    #REG-65910
+                  </span>
+<span class="bg-surface-container-low text-primary-container font-label-badge text-xs px-2 py-0.5 rounded border border-outline-variant/30 flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]">videocam</span>
+                    Online Live Stream
+                  </span>
+</div>
+<div>
+<h2 class="text-headline-md font-headline-md text-on-surface hover:text-primary transition-colors cursor-pointer">
+                    NextGen React &amp; TypeScript Masterclass
+                  </h2>
+<p class="text-body-md font-body-md text-on-surface-variant mt-1">
+                    Interactive Workshop &amp; Architecture Deep-Dive with Live QA &amp; Code Sandboxes
+                  </p>
+</div>
+<!-- Event Details Grid -->
+<div class="grid grid-cols-2 sm:grid-cols-3 gap-space-sm pt-2 text-body-sm font-body-sm text-on-surface">
+<div class="flex items-center gap-2 bg-surface-container-low/60 p-2 rounded-lg">
+<span class="material-symbols-outlined text-primary text-[20px]">calendar_month</span>
+<div>
+<span class="block text-[11px] text-outline uppercase font-semibold">Date</span>
+<span class="font-medium text-on-surface">Nov 02, 2025</span>
+</div>
+</div>
+<div class="flex items-center gap-2 bg-surface-container-low/60 p-2 rounded-lg">
+<span class="material-symbols-outlined text-primary text-[20px]">schedule</span>
+<div>
+<span class="block text-[11px] text-outline uppercase font-semibold">Time</span>
+<span class="font-medium text-on-surface">11:00 AM PST</span>
+</div>
+</div>
+<div class="flex items-center gap-2 bg-surface-container-low/60 p-2 rounded-lg col-span-2 sm:col-span-1">
+<span class="material-symbols-outlined text-primary text-[20px]">hub</span>
+<div>
+<span class="block text-[11px] text-outline uppercase font-semibold">Access</span>
+<span class="font-medium text-on-surface">WebRTC HD Stream</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Stream Readiness & Countdown Timer Card -->
+<div class="bg-surface-container-low border border-surface-container-high rounded-xl p-3.5 flex flex-col items-center justify-center shrink-0 w-full md:w-56 text-center">
+<span class="text-[11px] uppercase tracking-wider font-bold text-on-surface-variant mb-2">Live Stream Countdown</span>
+<div class="grid grid-cols-3 gap-2 w-full mb-3 text-center">
+<div class="bg-surface-container-lowest p-1.5 rounded-lg border border-outline-variant/30">
+<span class="block text-headline-sm font-headline-sm font-bold text-primary">19</span>
+<span class="text-[10px] text-outline uppercase">Days</span>
+</div>
+<div class="bg-surface-container-lowest p-1.5 rounded-lg border border-outline-variant/30">
+<span class="block text-headline-sm font-headline-sm font-bold text-primary">06</span>
+<span class="text-[10px] text-outline uppercase">Hours</span>
+</div>
+<div class="bg-surface-container-lowest p-1.5 rounded-lg border border-outline-variant/30">
+<span class="block text-headline-sm font-headline-sm font-bold text-primary">42</span>
+<span class="text-[10px] text-outline uppercase">Mins</span>
+</div>
+</div>
+<a class="w-full bg-primary-container text-on-primary py-2 px-3 rounded-lg text-label-md font-label-md font-medium hover:bg-primary transition-colors flex items-center justify-center gap-1.5 shadow-sm active:scale-98" href="#">
+<span class="material-symbols-outlined text-[18px]">play_circle</span>
+<span>Join Stream Hub</span>
+</a>
+</div>
+</div>
+<!-- Card Actions Footer -->
+<div class="mt-space-md pt-space-sm border-t border-surface-container flex flex-wrap items-center justify-between gap-2">
+<div class="flex flex-wrap items-center gap-2">
+<button class="px-3 py-1.5 rounded-lg border border-outline-variant/60 hover:bg-surface-container text-primary font-label-md text-label-md font-medium transition-colors flex items-center gap-1.5">
+<span class="material-symbols-outlined text-[18px]">calendar_add_on</span>
+<span>Add to Calendar</span>
+</button>
+<button class="px-3 py-1.5 rounded-lg border border-outline-variant/60 hover:bg-surface-container text-primary font-label-md text-label-md font-medium transition-colors flex items-center gap-1.5">
+<span class="material-symbols-outlined text-[18px]">folder_zip</span>
+<span>Prep Materials (Git)</span>
+</button>
+</div>
+<div class="flex items-center gap-2">
+<button class="px-3 py-1.5 rounded-lg text-on-surface-variant hover:text-primary hover:bg-surface-container transition-colors font-label-md text-label-md font-medium flex items-center gap-1">
+<span class="material-symbols-outlined text-[18px]">settings</span>
+<span>Manage Registration</span>
+</button>
+</div>
+</div>
+</div>
+</article>
+<!-- TICKET CARD 3: Modern API Security & OAuth 2.1 Workshop -->
+<article class="bg-surface-container-lowest border border-outline-variant/40 rounded-xl overflow-hidden shadow-sm hover:shadow-md transition-all">
+<div class="p-space-md md:p-space-lg">
+<div class="flex flex-col md:flex-row gap-space-md justify-between items-start">
+<div class="space-y-space-sm flex-1">
+<div class="flex flex-wrap items-center gap-2">
+<span class="bg-surface-container text-primary text-label-badge font-label-badge px-2.5 py-0.5 rounded-full uppercase tracking-wider font-bold border border-primary/20">
+                    Confirmed
+                  </span>
+<span class="text-label-code font-label-code text-on-surface-variant bg-surface-container-low px-2 py-0.5 rounded border border-outline-variant/30 text-xs">
+                    #REG-54129
+                  </span>
+<span class="bg-surface-container-low text-secondary font-label-code text-xs px-2 py-0.5 rounded border border-outline-variant/30">
+                    HANDS-ON LAB
+                  </span>
+</div>
+<div>
+<h2 class="text-headline-md font-headline-md text-on-surface hover:text-primary transition-colors cursor-pointer">
+                    Modern API Security &amp; OAuth 2.1 Workshop
+                  </h2>
+<p class="text-body-md font-body-md text-on-surface-variant mt-1">
+                    Metropolitan Tech Pavillion, Room 402, Seattle, WA &amp; Live Cloud Lab Sandboxes
+                  </p>
+</div>
+<!-- Event Details Grid -->
+<div class="grid grid-cols-2 sm:grid-cols-3 gap-space-sm pt-2 text-body-sm font-body-sm text-on-surface">
+<div class="flex items-center gap-2 bg-surface-container-low/60 p-2 rounded-lg">
+<span class="material-symbols-outlined text-primary text-[20px]">calendar_month</span>
+<div>
+<span class="block text-[11px] text-outline uppercase font-semibold">Date</span>
+<span class="font-medium text-on-surface">Nov 20, 2025</span>
+</div>
+</div>
+<div class="flex items-center gap-2 bg-surface-container-low/60 p-2 rounded-lg">
+<span class="material-symbols-outlined text-primary text-[20px]">schedule</span>
+<div>
+<span class="block text-[11px] text-outline uppercase font-semibold">Time</span>
+<span class="font-medium text-on-surface">01:30 PM PST</span>
+</div>
+</div>
+<div class="flex items-center gap-2 bg-surface-container-low/60 p-2 rounded-lg col-span-2 sm:col-span-1">
+<span class="material-symbols-outlined text-primary text-[20px]">vpn_key</span>
+<div>
+<span class="block text-[11px] text-outline uppercase font-semibold">Credentials</span>
+<span class="font-medium text-on-surface">Sandbox Assigned</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Quick action container -->
+<div class="bg-surface-container-low border border-surface-container-high rounded-xl p-3.5 flex flex-col items-center justify-center shrink-0 w-full md:w-56 text-center">
+<span class="material-symbols-outlined text-primary text-3xl mb-1">security</span>
+<span class="text-label-md font-label-md font-semibold text-on-surface">Security Lab Ready</span>
+<span class="text-body-sm font-body-sm text-outline mb-3">Postman Collection included</span>
+<button class="w-full bg-surface-container-lowest border border-outline-variant/60 text-primary hover:bg-surface-container py-2 px-3 rounded-lg text-label-md font-label-md font-medium transition-colors flex items-center justify-center gap-1.5 shadow-sm active:scale-98">
+<span class="material-symbols-outlined text-[18px]">terminal</span>
+<span>Lab Setup Guide</span>
+</button>
+</div>
+</div>
+<!-- Card Actions Footer -->
+<div class="mt-space-md pt-space-sm border-t border-surface-container flex flex-wrap items-center justify-between gap-2">
+<div class="flex flex-wrap items-center gap-2">
+<button class="px-3 py-1.5 rounded-lg border border-outline-variant/60 hover:bg-surface-container text-primary font-label-md text-label-md font-medium transition-colors flex items-center gap-1.5">
+<span class="material-symbols-outlined text-[18px]">calendar_add_on</span>
+<span>Add to Calendar</span>
+</button>
+<button class="px-3 py-1.5 rounded-lg border border-outline-variant/60 hover:bg-surface-container text-primary font-label-md text-label-md font-medium transition-colors flex items-center gap-1.5">
+<span class="material-symbols-outlined text-[18px]">picture_as_pdf</span>
+<span>View Ticket / PDF</span>
+</button>
+</div>
+<div class="flex items-center gap-2">
+<button class="px-3 py-1.5 rounded-lg text-on-surface-variant hover:text-primary hover:bg-surface-container transition-colors font-label-md text-label-md font-medium flex items-center gap-1">
+<span class="material-symbols-outlined text-[18px]">settings</span>
+<span>Manage Registration</span>
+</button>
+</div>
+</div>
+</div>
+</article>
+</section>
+<!-- RIGHT 4-COLUMN SIDEBAR: ATTENDEE PERKS & PORTAL TOOLS -->
+<aside class="lg:col-span-4 space-y-space-md">
+<!-- Attendee Perks Bento Widget -->
+<div class="bg-surface-container-lowest border border-outline-variant/30 rounded-xl p-space-md shadow-sm space-y-space-md">
+<div class="flex items-center justify-between border-b border-surface-container pb-3">
+<h3 class="text-headline-sm font-headline-sm text-on-surface flex items-center gap-2">
+<span class="material-symbols-outlined text-primary">card_membership</span>
+<span>Your Event Passes</span>
+</h3>
+<span class="text-label-code font-label-code text-xs bg-surface-container px-2 py-0.5 rounded text-primary font-bold">
+              3 ACTIVE
+            </span>
+</div>
+<!-- Download All Passes Callout -->
+<div class="bg-surface-container-low rounded-xl p-3.5 border border-surface-container-high space-y-2">
+<div class="flex items-start gap-3">
+<div class="p-2 bg-primary/10 rounded-lg text-primary shrink-0">
+<span class="material-symbols-outlined text-[22px]">archive</span>
+</div>
+<div>
+<h4 class="text-label-md font-label-md font-semibold text-on-surface">Download All Passes (ZIP)</h4>
+<p class="text-body-sm font-body-sm text-on-surface-variant">
+                  Get offline PDFs, calendar `.ics` files, and Apple Wallet bundles in one archive.
+                </p>
+</div>
+</div>
+<button class="w-full mt-2 bg-surface-container-lowest border border-outline-variant/60 hover:bg-surface-container text-primary py-2 px-3 rounded-lg text-label-md font-label-md font-medium transition-all flex items-center justify-center gap-1.5 active:scale-98 shadow-sm">
+<span class="material-symbols-outlined text-[18px]">download</span>
+<span>Download Bundle (4.2 MB)</span>
+</button>
+</div>
+<!-- Community Access Perk -->
+<div class="border border-outline-variant/30 rounded-xl p-3.5 space-y-3">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-2">
+<div class="w-8 h-8 rounded-lg bg-surface-container-high flex items-center justify-center text-primary">
+<span class="material-symbols-outlined text-[20px]">forum</span>
+</div>
+<div>
+<h4 class="text-label-md font-label-md font-semibold text-on-surface">Discord Community Access</h4>
+<span class="text-[11px] text-outline font-label-code">#attendees-channel</span>
+</div>
+</div>
+<span class="bg-surface-container text-primary font-label-badge text-[10px] px-2 py-0.5 rounded-full font-bold">
+                SYNCED
+              </span>
+</div>
+<p class="text-body-sm font-body-sm text-on-surface-variant">
+              Your registered badge usr_88204 is linked with the DevPulse Community server with speaker channels enabled.
+            </p>
+<a class="inline-flex items-center gap-1.5 text-primary hover:underline text-label-md font-label-md font-medium" href="#">
+<span>Open Discord Room</span>
+<span class="material-symbols-outlined text-[16px]">open_in_new</span>
+</a>
+</div>
+<!-- Developer Webhook Integration -->
+<div class="border border-outline-variant/30 rounded-xl p-3.5 space-y-2.5">
+<div class="flex items-center justify-between">
+<h4 class="text-label-md font-label-md font-semibold text-on-surface flex items-center gap-1.5">
+<span class="material-symbols-outlined text-secondary text-[18px]">webhook</span>
+<span>Registration Webhook</span>
+</h4>
+<span class="text-label-code font-label-code text-[11px] text-primary">200 OK</span>
+</div>
+<p class="text-body-sm font-body-sm text-on-surface-variant">
+              Event schedule updates and speaker slides are automatically pushed to your endpoint.
+            </p>
+<div class="bg-surface-container-low p-2 rounded text-label-code font-label-code text-xs text-on-surface-variant truncate border border-outline-variant/20">
+              https://api.devpulse.io/v1/wh_88204
+            </div>
+</div>
+<!-- Browse More Events Action Banner -->
+<div class="pt-2">
+<a class="w-full bg-primary hover:bg-primary-container text-on-primary py-2.5 px-4 rounded-lg text-label-md font-label-md font-semibold transition-all flex items-center justify-center gap-2 shadow-sm active:scale-98" href="#">
+<span class="material-symbols-outlined text-[20px]">explore</span>
+<span>Browse More Events</span>
+</a>
+</div>
+</div>
+<!-- Quick Help & Documentation Panel -->
+<div class="bg-surface-container-low border border-surface-container-high rounded-xl p-space-md text-body-sm font-body-sm text-on-surface-variant space-y-2">
+<div class="flex items-center gap-2 text-on-surface font-semibold">
+<span class="material-symbols-outlined text-primary text-[18px]">help</span>
+<span>Need assistance with your badges?</span>
+</div>
+<p>
+            Badge reassignments and corporate transfers can be executed up to 48 hours prior to event commencement.
+          </p>
+<div class="pt-1 flex items-center gap-3">
+<a class="text-primary hover:underline font-medium" href="#">Transfer Ticket</a>
+<span>•</span>
+<a class="text-primary hover:underline font-medium" href="#">Refund Policy</a>
+<span>•</span>
+<a class="text-primary hover:underline font-medium" href="#">API Support</a>
+</div>
+</div>
+</aside>
+</div>
+</main>
+<!-- MODAL DIALOGUE (Simulation of Manage Registration Sheet - hidden by default, accessible via keyboard/script) -->
+<div class="hidden fixed inset-0 z-50 bg-black/40 backdrop-blur-sm flex items-center justify-center p-4" id="manage-modal">
+<div class="bg-surface-container-lowest max-w-[560px] w-full rounded-2xl shadow-2xl border border-outline-variant/40 p-6 space-y-4">
+<div class="flex justify-between items-center border-b border-surface-container pb-3">
+<h3 class="text-headline-sm font-headline-sm text-on-surface">Manage Registration</h3>
+<button class="p-1 rounded-lg text-outline hover:text-on-surface" onclick="document.getElementById('manage-modal').classList.add('hidden')">
+<span class="material-symbols-outlined">close</span>
+</button>
+</div>
+<p class="text-body-md font-body-md text-on-surface-variant">Update attendee profile, add dietary restrictions, or configure webhooks for this event pass.</p>
+<div class="space-y-3">
+<div>
+<label class="block text-label-md font-label-md text-on-surface mb-1">Attendee Name</label>
+<input class="w-full bg-surface-container-low border border-outline-variant/60 rounded-lg p-2.5 text-body-md font-body-md" type="text" value="Alex Rivera"/>
+</div>
+<div>
+<label class="block text-label-md font-label-md text-on-surface mb-1">Badge Title / Company</label>
+<input class="w-full bg-surface-container-low border border-outline-variant/60 rounded-lg p-2.5 text-body-md font-body-md" type="text" value="Staff Systems Architect @ DevPulse"/>
+</div>
+</div>
+<div class="flex justify-end gap-2 pt-4 border-t border-surface-container">
+<button class="px-4 py-2 rounded-lg border border-outline-variant/60 text-primary font-label-md font-medium" onclick="document.getElementById('manage-modal').classList.add('hidden')">Cancel</button>
+<button class="px-4 py-2 rounded-lg bg-primary-container text-on-primary font-label-md font-medium" onclick="document.getElementById('manage-modal').classList.add('hidden')">Save Changes</button>
+</div>
+</div>
+</div>
+<!-- SCRIPT FOR LIGHTWEIGHT MICRO-INTERACTIONS -->
+<script>
+    // Enable click-to-open on Manage Registration buttons
+    document.querySelectorAll('button').forEach(btn => {
+      if (btn.innerText.includes('Manage Registration')) {
+        btn.addEventListener('click', (e) => {
+          e.preventDefault();
+          const modal = document.getElementById('manage-modal');
+          if (modal) modal.classList.remove('hidden');
+        });
+      }
+    });
+  </script>
+</body></html>

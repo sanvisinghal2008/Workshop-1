@@ -1,0 +1,681 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Event Pulse - Event Explorer &amp; Catalog</title>
+<!-- Material Symbols Outlined -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Google Fonts: Plus Jakarta Sans, Inter, JetBrains Mono -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&amp;family=JetBrains+Mono:wght@500;600;700&amp;family=Plus+Jakarta+Sans:wght@600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          "colors": {
+            "surface": "#fcf8ff",
+            "surface-container-highest": "#e3dfff",
+            "on-surface": "#181445",
+            "primary-container": "#4a24b2",
+            "on-tertiary-fixed-variant": "#464555",
+            "inverse-primary": "#ccbeff",
+            "on-primary-container": "#b9a6ff",
+            "on-tertiary-fixed": "#1b1a29",
+            "inverse-surface": "#2d2a5b",
+            "error": "#ba1a1a",
+            "on-error": "#ffffff",
+            "tertiary-container": "#454354",
+            "primary-fixed-dim": "#ccbeff",
+            "tertiary-fixed": "#e4e0f5",
+            "inverse-on-surface": "#f3eeff",
+            "error-container": "#ffdad6",
+            "on-secondary-container": "#571a00",
+            "on-tertiary": "#ffffff",
+            "on-primary": "#ffffff",
+            "surface-container-lowest": "#ffffff",
+            "on-secondary-fixed": "#370e00",
+            "primary": "#330093",
+            "on-background": "#181445",
+            "background": "#fcf8ff",
+            "surface-container-high": "#e9e5ff",
+            "on-error-container": "#93000a",
+            "on-tertiary-container": "#b3b0c4",
+            "surface-bright": "#fcf8ff",
+            "surface-container-low": "#f6f2ff",
+            "primary-fixed": "#e7deff",
+            "surface-container": "#efebff",
+            "surface-tint": "#6444cd",
+            "outline-variant": "#cac4d6",
+            "on-surface-variant": "#484554",
+            "surface-dim": "#dad6ff",
+            "tertiary-fixed-dim": "#c7c4d8",
+            "on-secondary": "#ffffff",
+            "on-secondary-fixed-variant": "#7f2b00",
+            "secondary-fixed": "#ffdbce",
+            "tertiary": "#2e2d3d",
+            "secondary": "#a73a00",
+            "secondary-container": "#fd651e",
+            "outline": "#797585",
+            "on-primary-fixed-variant": "#4c27b4",
+            "surface-variant": "#e3dfff",
+            "on-primary-fixed": "#1e0060",
+            "secondary-fixed-dim": "#ffb599"
+          },
+          "borderRadius": {
+            "DEFAULT": "0.25rem",
+            "lg": "0.5rem",
+            "xl": "0.75rem",
+            "full": "9999px"
+          },
+          "spacing": {
+            "space-md": "1rem",
+            "gutter": "1rem",
+            "space-xl": "2.5rem",
+            "space-sm": "0.5rem",
+            "margin": "1rem",
+            "space-xs": "0.25rem",
+            "margin-tablet": "2rem",
+            "gutter-desktop": "1.5rem",
+            "margin-desktop": "3rem",
+            "space-lg": "1.5rem"
+          },
+          "fontFamily": {
+            "label-code": ["JetBrains Mono"],
+            "display-lg": ["Plus Jakarta Sans"],
+            "headline-lg": ["Plus Jakarta Sans"],
+            "body-lg": ["Inter"],
+            "headline-sm": ["Plus Jakarta Sans"],
+            "display-lg-mobile": ["Plus Jakarta Sans"],
+            "body-sm": ["Inter"],
+            "label-md": ["Inter"],
+            "headline-md": ["Plus Jakarta Sans"],
+            "body-md": ["Inter"],
+            "label-badge": ["Plus Jakarta Sans"]
+          },
+          "fontSize": {
+            "label-code": ["13px", { "lineHeight": "18px", "fontWeight": "600" }],
+            "display-lg": ["40px", { "lineHeight": "48px", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+            "headline-lg": ["28px", { "lineHeight": "36px", "letterSpacing": "-0.01em", "fontWeight": "600" }],
+            "body-lg": ["16px", { "lineHeight": "24px", "fontWeight": "400" }],
+            "headline-sm": ["18px", { "lineHeight": "24px", "fontWeight": "600" }],
+            "display-lg-mobile": ["30px", { "lineHeight": "38px", "letterSpacing": "-0.01em", "fontWeight": "700" }],
+            "body-sm": ["12px", { "lineHeight": "16px", "fontWeight": "400" }],
+            "label-md": ["14px", { "lineHeight": "20px", "fontWeight": "500" }],
+            "headline-md": ["22px", { "lineHeight": "28px", "fontWeight": "600" }],
+            "body-md": ["14px", { "lineHeight": "20px", "fontWeight": "400" }],
+            "label-badge": ["12px", { "lineHeight": "16px", "letterSpacing": "0.04em", "fontWeight": "700" }]
+          }
+        }
+      }
+    }
+  </script>
+</head>
+<body class="bg-background text-on-surface antialiased min-h-screen flex flex-col font-body-md text-body-md selection:bg-surface-container selection:text-primary">
+<!-- Sticky TopNavBar Anchored with JSON & Requirements -->
+<header class="sticky top-0 z-40 bg-surface-container-lowest border-b border-surface-container-high shadow-sm">
+<div class="flex justify-between items-center w-full px-space-md md:px-margin-tablet lg:px-margin-desktop max-w-[1280px] mx-auto h-16">
+<!-- Brand & Left Navigation Links -->
+<div class="flex items-center gap-space-lg">
+<a class="flex items-center gap-space-xs text-headline-sm font-headline-sm font-bold text-primary tracking-tight" href="#">
+<div class="w-8 h-8 rounded-lg bg-primary-container flex items-center justify-center text-on-primary shadow-sm">
+<span class="material-symbols-outlined text-[20px]" data-icon="terminal">terminal</span>
+</div>
+<span>Event Pulse</span>
+</a>
+<!-- Desktop Navigation Links (JSON Authority) -->
+<nav class="hidden lg:flex items-center gap-space-md ml-space-sm">
+<a class="text-primary font-semibold border-b-2 border-primary pb-1 font-label-md text-label-md flex items-center gap-1" href="#">
+            Browse Events
+          </a>
+<a class="text-on-surface-variant font-medium hover:bg-surface-container hover:text-primary rounded-lg px-2.5 py-1.5 transition-colors font-label-md text-label-md" href="#">
+            My Registrations
+          </a>
+<a class="text-on-surface-variant font-medium hover:bg-surface-container hover:text-primary rounded-lg px-2.5 py-1.5 transition-colors font-label-md text-label-md" href="#">
+            Organizer Portal
+          </a>
+<a class="text-on-surface-variant font-medium hover:bg-surface-container hover:text-primary rounded-lg px-2.5 py-1.5 transition-colors font-label-md text-label-md" href="#">
+            API Docs
+          </a>
+</nav>
+</div>
+<!-- Center-Right: Search & API Ping Pill -->
+<div class="flex items-center gap-space-sm md:gap-space-md">
+<!-- Live Endpoint Ping Badge -->
+<div class="hidden sm:flex items-center gap-1.5 bg-surface-container-low border border-surface-container px-2.5 py-1 rounded-full text-label-code font-label-code">
+<span class="w-2 h-2 rounded-full bg-[#10b981] animate-pulse"></span>
+<span class="text-primary font-semibold">● API: 200 OK</span>
+<span class="text-on-surface-variant text-[11px]">/api/events</span>
+</div>
+<!-- Trailing Icon Actions & Primary CTAs -->
+<div class="flex items-center gap-space-xs md:gap-space-sm">
+<button class="p-2 text-on-surface-variant hover:bg-surface-container hover:text-primary rounded-lg transition-colors flex items-center justify-center" id="toggle-json-bar" title="API Console Drawer">
+<span class="material-symbols-outlined text-[20px]" data-icon="terminal">terminal</span>
+</button>
+<button class="p-2 text-on-surface-variant hover:bg-surface-container hover:text-primary rounded-lg transition-colors flex items-center justify-center relative" title="Notifications">
+<span class="material-symbols-outlined text-[20px]" data-icon="notifications">notifications</span>
+<span class="absolute top-1.5 right-1.5 w-2 h-2 rounded-full bg-secondary-container"></span>
+</button>
+<button class="hidden md:inline-flex items-center gap-1 px-3 py-1.5 rounded-lg border border-outline-variant bg-surface-container-lowest text-primary hover:bg-surface-container font-label-code text-label-code transition-all duration-150 active:scale-95" onclick="triggerQuickToast('Test GET /api/events: 200 OK (11ms)')">
+<span class="material-symbols-outlined text-[16px]" data-icon="api">api</span>
+<span>Test API</span>
+</button>
+<button class="px-3.5 py-1.5 bg-primary-container hover:bg-[#5b32cc] active:bg-[#3c1b94] text-on-primary rounded-lg font-label-md text-label-md font-medium shadow-sm transition-all duration-150 active:scale-95 flex items-center gap-1" onclick="triggerQuickToast('Initiating Event Publisher Wizard')">
+<span class="material-symbols-outlined text-[18px]" data-icon="add">add</span>
+<span class="hidden sm:inline">Create Event</span>
+</button>
+</div>
+</div>
+</div>
+</header>
+<!-- Hero Header with Dynamic Ticker -->
+<section class="bg-surface-container-low border-b border-surface-container-high py-space-xl px-space-md md:px-margin-tablet lg:px-margin-desktop">
+<div class="max-w-[1280px] mx-auto flex flex-col md:flex-row justify-between items-start md:items-end gap-space-lg">
+<div class="max-w-3xl space-y-2">
+<div class="inline-flex items-center gap-2 px-2.5 py-1 rounded-md bg-surface-container border border-surface-container-highest text-primary font-label-code text-label-code">
+<span class="material-symbols-outlined text-[15px]" data-icon="bolt">bolt</span>
+<span>HIGH DENSITY REAL-TIME EVENT STREAM</span>
+</div>
+<h1 class="text-headline-lg md:text-display-lg font-headline-lg md:font-display-lg text-primary tracking-tight">
+          Discover &amp; Register for Developer Summits, Tech Conferences &amp; Masterclasses
+        </h1>
+<p class="text-on-surface-variant font-body-lg text-body-lg">
+          Query validated technical sessions, inspect real-time seat webhooks, or test our live REST pipeline.
+        </p>
+</div>
+<!-- Dynamic Stats Ticker -->
+<div class="flex items-center gap-3 bg-surface-container-lowest border border-outline-variant/60 rounded-xl p-3 shadow-sm shrink-0">
+<div class="px-3 py-1 text-center border-r border-surface-container-high">
+<div class="text-headline-sm font-headline-sm font-bold text-primary">142</div>
+<div class="text-body-sm font-body-sm text-on-surface-variant">Events Live</div>
+</div>
+<div class="px-3 py-1 text-center border-r border-surface-container-high">
+<div class="text-headline-sm font-headline-sm font-bold text-primary">48.2k</div>
+<div class="text-body-sm font-body-sm text-on-surface-variant">Attendees</div>
+</div>
+<div class="px-3 py-1 text-center">
+<div class="flex items-center justify-center gap-1 text-headline-sm font-headline-sm font-bold text-secondary-container">
+<span class="w-2 h-2 rounded-full bg-secondary-container animate-ping"></span>
+            12ms
+          </div>
+<div class="text-body-sm font-body-sm text-on-surface-variant">API Latency</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Main Canvas: Left Filter Sidebar + Main Event Grid -->
+<main class="flex-1 max-w-[1280px] w-full mx-auto px-space-md md:px-margin-tablet lg:px-margin-desktop py-space-lg flex flex-col lg:flex-row gap-space-lg">
+<!-- Left Filter Sidebar -->
+<aside class="w-full lg:w-72 shrink-0 space-y-space-md">
+<div class="bg-surface-container-lowest border border-outline-variant/60 rounded-xl p-space-md shadow-sm space-y-space-md sticky top-24">
+<div class="flex items-center justify-between pb-space-sm border-b border-surface-container-high">
+<span class="font-headline-sm text-headline-sm font-bold text-primary flex items-center gap-1.5">
+<span class="material-symbols-outlined text-[20px]" data-icon="tune">tune</span>
+            Filters
+          </span>
+<button class="text-body-sm font-body-sm text-primary hover:underline" onclick="resetFilters()">Reset All</button>
+</div>
+<!-- Query Input -->
+<div class="space-y-1.5">
+<label class="block text-body-sm font-label-md text-on-surface font-semibold">Search Keywords</label>
+<div class="relative">
+<input class="w-full pl-9 pr-3 py-2 bg-surface-container-lowest border border-outline-variant rounded-lg text-body-md font-body-md focus:border-primary focus:ring-2 focus:ring-primary/15 transition-all outline-none" placeholder="Filter title, speaker, topic..." type="text"/>
+<span class="material-symbols-outlined absolute left-2.5 top-2.5 text-on-surface-variant text-[18px]" data-icon="search">search</span>
+</div>
+</div>
+<!-- Date Range Picker -->
+<div class="space-y-1.5">
+<label class="block text-body-sm font-label-md text-on-surface font-semibold">Event Dates</label>
+<div class="grid grid-cols-2 gap-2">
+<input class="w-full px-2 py-1.5 bg-surface-container-lowest border border-outline-variant rounded-lg text-body-sm font-body-sm focus:border-primary outline-none" type="date" value="2025-05-01"/>
+<input class="w-full px-2 py-1.5 bg-surface-container-lowest border border-outline-variant rounded-lg text-body-sm font-body-sm focus:border-primary outline-none" type="date" value="2025-11-30"/>
+</div>
+</div>
+<!-- Format Filter -->
+<div class="space-y-2">
+<label class="block text-body-sm font-label-md text-on-surface font-semibold">Event Format</label>
+<div class="space-y-1.5">
+<label class="flex items-center gap-2 text-body-md font-body-md text-on-surface cursor-pointer">
+<input checked="" class="rounded border-outline text-primary focus:ring-primary/20" type="checkbox"/>
+<span>In-Person Summit</span>
+</label>
+<label class="flex items-center gap-2 text-body-md font-body-md text-on-surface cursor-pointer">
+<input checked="" class="rounded border-outline text-primary focus:ring-primary/20" type="checkbox"/>
+<span>Hybrid Interactive</span>
+</label>
+<label class="flex items-center gap-2 text-body-md font-body-md text-on-surface cursor-pointer">
+<input checked="" class="rounded border-outline text-primary focus:ring-primary/20" type="checkbox"/>
+<span>Virtual Livestream</span>
+</label>
+</div>
+</div>
+<!-- Topic Tags -->
+<div class="space-y-2">
+<label class="block text-body-sm font-label-md text-on-surface font-semibold">Topics &amp; Tracks</label>
+<div class="flex flex-wrap gap-1.5">
+<span class="px-2.5 py-1 rounded-md text-body-sm font-body-sm bg-surface-container text-primary font-medium border border-surface-container-highest cursor-pointer hover:bg-surface-container-high transition-colors">AI &amp; Cloud</span>
+<span class="px-2.5 py-1 rounded-md text-body-sm font-body-sm bg-surface-container-low text-on-surface-variant border border-outline-variant/60 cursor-pointer hover:bg-surface-container transition-colors">Frontend</span>
+<span class="px-2.5 py-1 rounded-md text-body-sm font-body-sm bg-surface-container-low text-on-surface-variant border border-outline-variant/60 cursor-pointer hover:bg-surface-container transition-colors">Systems &amp; Rust</span>
+<span class="px-2.5 py-1 rounded-md text-body-sm font-body-sm bg-surface-container-low text-on-surface-variant border border-outline-variant/60 cursor-pointer hover:bg-surface-container transition-colors">DevOps</span>
+<span class="px-2.5 py-1 rounded-md text-body-sm font-body-sm bg-surface-container-low text-on-surface-variant border border-outline-variant/60 cursor-pointer hover:bg-surface-container transition-colors">Design Systems</span>
+</div>
+</div>
+<!-- Price Filter -->
+<div class="space-y-2 pt-2 border-t border-surface-container-high">
+<label class="block text-body-sm font-label-md text-on-surface font-semibold">Access Level</label>
+<div class="grid grid-cols-2 gap-2">
+<button class="py-1.5 px-3 rounded-lg border border-primary bg-surface-container text-primary font-label-md text-label-md font-semibold text-center">All Access</button>
+<button class="py-1.5 px-3 rounded-lg border border-outline-variant bg-surface-container-lowest text-on-surface-variant font-label-md text-label-md text-center hover:bg-surface-container-low">Free Only</button>
+</div>
+</div>
+</div>
+</aside>
+<!-- Main Content Canvas -->
+<div class="flex-1 space-y-space-md">
+<!-- Controls & Filter Badges Bar -->
+<div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 bg-surface-container-lowest border border-outline-variant/60 rounded-xl px-4 py-3 shadow-sm">
+<div class="flex items-center gap-2">
+<span class="text-label-md font-label-md font-bold text-on-surface">Showing 6 Events</span>
+<span class="text-body-sm font-body-sm text-on-surface-variant">• Sorted by Featured Schedule</span>
+</div>
+<div class="flex items-center gap-2">
+<span class="text-body-sm font-body-sm text-on-surface-variant">View as:</span>
+<button class="p-1 rounded bg-surface-container text-primary">
+<span class="material-symbols-outlined text-[20px]" data-icon="grid_view">grid_view</span>
+</button>
+<button class="p-1 rounded text-on-surface-variant hover:bg-surface-container">
+<span class="material-symbols-outlined text-[20px]" data-icon="format_list_bulleted">format_list_bulleted</span>
+</button>
+</div>
+</div>
+<!-- Bento-style Event Cards Grid -->
+<div class="grid grid-cols-1 md:grid-cols-2 gap-space-md">
+<!-- CARD 1: Kubernetes & Cloud Summit -->
+<div class="bg-surface-container-lowest rounded-xl border border-outline-variant/60 shadow-sm overflow-hidden flex flex-col hover:border-primary-fixed-dim transition-all duration-200">
+<div class="relative h-44 w-full bg-cover bg-center overflow-hidden" data-alt="A futuristic modern technology keynote auditorium bathed in cool violet and electric indigo stage lighting. High-tech holographic displays project architectural cloud topologies above modern glass podiums. Sleek developer attendees with laptops populate the audience in a clean, high-contrast, premium light conference environment." style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuCmWXwpy_O7zb7J9XJZXDWQjEs1N20TFn4yc1WQkcAu3ndkUPI6vjY6vCUYuHZ6tchFN7bddw1y2a2KvrjVtJME6WnQHFPgzC36gT4DpdCpM9RVF_rnJouMxXLREFEAbSudFM4e0w0HUJi8YRbEebldb3en_XPH-WDhXcwgWWOzg5P2olDWXKLpXYYG_J2ElVJrp1ahLmj0DO2UsvMzDP3o4BkVSuHyYToEssEKYf42')">
+<div class="absolute inset-0 bg-gradient-to-t from-primary/80 via-transparent to-transparent"></div>
+<!-- Badges -->
+<div class="absolute top-3 left-3 flex gap-1.5">
+<span class="bg-surface-container-lowest/90 backdrop-blur-sm px-2.5 py-1 rounded text-label-code font-label-code text-primary shadow-sm flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]" data-icon="location_on">location_on</span> San Francisco &amp; Hybrid
+              </span>
+<span class="bg-secondary text-on-secondary px-2 py-0.5 rounded text-label-code font-label-code">PRO</span>
+</div>
+<div class="absolute bottom-3 left-3 text-on-primary">
+<span class="text-body-sm font-label-code bg-primary-container/80 px-2 py-0.5 rounded backdrop-blur-sm">Oct 24-26, 2025 • 09:00 PST</span>
+</div>
+</div>
+<div class="p-4 flex-1 flex flex-col justify-between space-y-3">
+<div>
+<div class="flex items-center gap-2 mb-1.5">
+<span class="text-label-badge font-label-badge px-2 py-0.5 rounded bg-surface-container text-primary">CLOUD ARCHITECTURE</span>
+<span class="text-label-code font-label-code text-on-surface-variant text-[11px]">$449 / attendee</span>
+</div>
+<h2 class="text-headline-sm font-headline-sm font-bold text-on-surface hover:text-primary transition-colors">
+                Global Kubernetes &amp; Cloud Native Architecture Summit 2025
+              </h2>
+<p class="text-body-md font-body-md text-on-surface-variant mt-1 line-clamp-2">
+                Deep dive into distributed eBPF tracing, multi-region cluster federation, and cost-aware container orchestration with senior infrastructure staff.
+              </p>
+</div>
+<!-- Tags -->
+<div class="flex flex-wrap gap-1.5 pt-1">
+<span class="px-2 py-0.5 rounded bg-surface-container-low text-primary text-[11px] font-label-code font-label-code">#Kubernetes</span>
+<span class="px-2 py-0.5 rounded bg-surface-container-low text-primary text-[11px] font-label-code font-label-code">#Cloud</span>
+<span class="px-2 py-0.5 rounded bg-surface-container-low text-primary text-[11px] font-label-code font-label-code">#DevOps</span>
+</div>
+<!-- Capacity Progress -->
+<div class="space-y-1 pt-1">
+<div class="flex justify-between text-body-sm font-body-sm">
+<span class="text-on-surface-variant font-medium">85% filled</span>
+<span class="text-secondary font-semibold">34 seats left</span>
+</div>
+<div class="w-full bg-surface-container-high h-2 rounded-full overflow-hidden">
+<div class="bg-primary-container h-full rounded-full transition-all duration-500" style="width: 85%"></div>
+</div>
+</div>
+<!-- Action Row -->
+<div class="pt-2 flex items-center gap-2 border-t border-surface-container-high">
+<button class="flex-1 py-2 px-3 rounded-lg border border-outline-variant bg-surface-container-lowest text-primary font-label-md text-label-md font-medium hover:bg-surface-container transition-colors text-center" onclick="triggerQuickToast('Opening session syllabus: Kubernetes Summit')">
+                View Details
+              </button>
+<button class="flex-1 py-2 px-3 rounded-lg bg-primary-container text-on-primary font-label-md text-label-md font-semibold hover:bg-[#5b32cc] transition-colors text-center shadow-sm" onclick="openRegistrationModal('Global Kubernetes &amp; Cloud Native Summit')">
+                Register Now
+              </button>
+</div>
+</div>
+</div>
+<!-- CARD 2: NextGen Generative AI Systems -->
+<div class="bg-surface-container-lowest rounded-xl border border-outline-variant/60 shadow-sm overflow-hidden flex flex-col hover:border-primary-fixed-dim transition-all duration-200">
+<div class="relative h-44 w-full bg-cover bg-center overflow-hidden" data-alt="An ultra-sleek tech conference workshop stage with digital light sculptures resembling glowing neural networks in gentle shades of deep violet and warm amber. Attendees collaborate with ultra-thin laptops in an airy, minimalist architectural venue bathed in bright daylight and subtle accent lights." style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuASYmT7SfwDIT2dMv9UButXXEujbawDDJCQBUTAog873tGg1a3ykqWjpNCzeZf20q5PvgggBmfhXCps3FQAS7zs6_TJO3yynMx_eOefMPNruUWGtLldYe8PXvk9t9U2fdXG8kZz0ZffvnGQGMIYJbRnCOq-q8Xod5unc6Qx44uQWLTbDk8cfnXHJnpSXdAey3BXLCmL2803Q6RHoKvWOPIxqhG9a0tPzO29y3TuE7RQ')">
+<div class="absolute inset-0 bg-gradient-to-t from-primary/80 via-transparent to-transparent"></div>
+<div class="absolute top-3 left-3 flex gap-1.5">
+<span class="bg-surface-container-lowest/90 backdrop-blur-sm px-2.5 py-1 rounded text-label-code font-label-code text-primary shadow-sm flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]" data-icon="videocam">videocam</span> Virtual Stream
+              </span>
+<span class="bg-emerald-600 text-white px-2 py-0.5 rounded text-label-code font-label-code">FREE TIER</span>
+</div>
+<div class="absolute bottom-3 left-3 text-on-primary">
+<span class="text-body-sm font-label-code bg-primary-container/80 px-2 py-0.5 rounded backdrop-blur-sm">Nov 12, 2025 • 10:00 EST</span>
+</div>
+</div>
+<div class="p-4 flex-1 flex flex-col justify-between space-y-3">
+<div>
+<div class="flex items-center gap-2 mb-1.5">
+<span class="text-label-badge font-label-badge px-2 py-0.5 rounded bg-surface-container text-primary">MACHINE LEARNING</span>
+<span class="text-label-code font-label-code text-on-surface-variant text-[11px]">Free / Live API Pass</span>
+</div>
+<h2 class="text-headline-sm font-headline-sm font-bold text-on-surface hover:text-primary transition-colors">
+                Generative AI Systems: Production LLMs &amp; Vector Databases
+              </h2>
+<p class="text-body-md font-body-md text-on-surface-variant mt-1 line-clamp-2">
+                Building deterministic pipelines around probabilistic inference models, real-time agent memory, and token cost mitigation strategies.
+              </p>
+</div>
+<!-- Tags -->
+<div class="flex flex-wrap gap-1.5 pt-1">
+<span class="px-2 py-0.5 rounded bg-surface-container-low text-primary text-[11px] font-label-code font-label-code">#AI</span>
+<span class="px-2 py-0.5 rounded bg-surface-container-low text-primary text-[11px] font-label-code font-label-code">#VectorDB</span>
+<span class="px-2 py-0.5 rounded bg-surface-container-low text-primary text-[11px] font-label-code font-label-code">#Python</span>
+</div>
+<!-- Capacity Progress -->
+<div class="space-y-1 pt-1">
+<div class="flex justify-between text-body-sm font-body-sm">
+<span class="text-on-surface-variant font-medium">92% filled</span>
+<span class="text-secondary font-semibold">12 seats left</span>
+</div>
+<div class="w-full bg-surface-container-high h-2 rounded-full overflow-hidden">
+<div class="bg-secondary-container h-full rounded-full transition-all duration-500" style="width: 92%"></div>
+</div>
+</div>
+<!-- Action Row -->
+<div class="pt-2 flex items-center gap-2 border-t border-surface-container-high">
+<button class="flex-1 py-2 px-3 rounded-lg border border-outline-variant bg-surface-container-lowest text-primary font-label-md text-label-md font-medium hover:bg-surface-container transition-colors text-center" onclick="triggerQuickToast('Opening session syllabus: Generative AI')">
+                View Details
+              </button>
+<button class="flex-1 py-2 px-3 rounded-lg bg-primary-container text-on-primary font-label-md text-label-md font-semibold hover:bg-[#5b32cc] transition-colors text-center shadow-sm" onclick="openRegistrationModal('Generative AI Systems Masterclass')">
+                Register Now
+              </button>
+</div>
+</div>
+</div>
+<!-- CARD 3: Modern Web Frameworks & UI Architecture -->
+<div class="bg-surface-container-lowest rounded-xl border border-outline-variant/60 shadow-sm overflow-hidden flex flex-col hover:border-primary-fixed-dim transition-all duration-200">
+<div class="relative h-44 w-full bg-cover bg-center overflow-hidden" data-alt="A bright, sunlit modern auditorium hall where designers and engineers attend a frontend architecture presentation. High-resolution screens exhibit clean modular UI tokens and reactive code snippets. The setting features subtle purple brand lighting, glass railings, and an atmosphere of refined developer collaboration." style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuB2EVUU71QHib-mbxnnacmcvh_mcdCIVeZtcFeLWcjw0plaMDiWCFZBOLfHyCzOW2nUgNQMx9aMDDgJspkchAIbm_TMu-cHfJLX33XYWYOLy8A3JP6m0IVAn6hl3X1QbSD6Mc7CUjNR9NWB0ctJbEoml1YS1fb5uL6bJsfkHwV4PrdbSkuNkr8_oHWYSXRedeZZXiuoHGJWXbrRCxsLT9zu8ZTNinZlaAJygwLZUriT')">
+<div class="absolute inset-0 bg-gradient-to-t from-primary/80 via-transparent to-transparent"></div>
+<div class="absolute top-3 left-3 flex gap-1.5">
+<span class="bg-surface-container-lowest/90 backdrop-blur-sm px-2.5 py-1 rounded text-label-code font-label-code text-primary shadow-sm flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]" data-icon="apartment">apartment</span> Austin, TX &amp; Live
+              </span>
+</div>
+<div class="absolute bottom-3 left-3 text-on-primary">
+<span class="text-body-sm font-label-code bg-primary-container/80 px-2 py-0.5 rounded backdrop-blur-sm">Dec 04, 2025 • 09:30 CST</span>
+</div>
+</div>
+<div class="p-4 flex-1 flex flex-col justify-between space-y-3">
+<div>
+<div class="flex items-center gap-2 mb-1.5">
+<span class="text-label-badge font-label-badge px-2 py-0.5 rounded bg-surface-container text-primary">FRONTEND &amp; UI</span>
+<span class="text-label-code font-label-code text-on-surface-variant text-[11px]">$199 Regular</span>
+</div>
+<h2 class="text-headline-sm font-headline-sm font-bold text-on-surface hover:text-primary transition-colors">
+                Modern Web Frameworks &amp; Micro-Frontend Architecture
+              </h2>
+<p class="text-body-md font-body-md text-on-surface-variant mt-1 line-clamp-2">
+                Decoupled design tokens, Server Components, WebAssembly runtimes, and sub-second asset hydration at global enterprise scale.
+              </p>
+</div>
+<!-- Tags -->
+<div class="flex flex-wrap gap-1.5 pt-1">
+<span class="px-2 py-0.5 rounded bg-surface-container-low text-primary text-[11px] font-label-code font-label-code">#WebDev</span>
+<span class="px-2 py-0.5 rounded bg-surface-container-low text-primary text-[11px] font-label-code font-label-code">#TypeScript</span>
+<span class="px-2 py-0.5 rounded bg-surface-container-low text-primary text-[11px] font-label-code font-label-code">#DesignSystems</span>
+</div>
+<!-- Capacity Progress -->
+<div class="space-y-1 pt-1">
+<div class="flex justify-between text-body-sm font-body-sm">
+<span class="text-on-surface-variant font-medium">60% filled</span>
+<span class="text-primary font-semibold">120 seats left</span>
+</div>
+<div class="w-full bg-surface-container-high h-2 rounded-full overflow-hidden">
+<div class="bg-primary-container h-full rounded-full transition-all duration-500" style="width: 60%"></div>
+</div>
+</div>
+<!-- Action Row -->
+<div class="pt-2 flex items-center gap-2 border-t border-surface-container-high">
+<button class="flex-1 py-2 px-3 rounded-lg border border-outline-variant bg-surface-container-lowest text-primary font-label-md text-label-md font-medium hover:bg-surface-container transition-colors text-center" onclick="triggerQuickToast('Opening session syllabus: Web Frameworks')">
+                View Details
+              </button>
+<button class="flex-1 py-2 px-3 rounded-lg bg-primary-container text-on-primary font-label-md text-label-md font-semibold hover:bg-[#5b32cc] transition-colors text-center shadow-sm" onclick="openRegistrationModal('Modern Web Frameworks Conference')">
+                Register Now
+              </button>
+</div>
+</div>
+</div>
+<!-- CARD 4: High-Throughput Rust & Distributed Systems -->
+<div class="bg-surface-container-lowest rounded-xl border border-outline-variant/60 shadow-sm overflow-hidden flex flex-col hover:border-primary-fixed-dim transition-all duration-200">
+<div class="relative h-44 w-full bg-cover bg-center overflow-hidden" data-alt="A focused engineering lab presentation setting with large interactive terminal displays exhibiting memory profiles and high-concurrency benchmarks. Warm ambient lighting offsets indigo monitors, showcasing a dedicated group of systems developers engaged in an advanced low-latency masterclass." style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuDEk3fH02FbwL9XCzdi0CcKhMVHPxM31bKpLn0dxA5R9-gd806UiJeHKOX9oUGQe3m-EWpMQgN0tt5jafBMbsE4vPx1FnZkXaUNLNQnHmk6SYoFB8Cpje7kWsHuiC701ucYRZBibepveWQTgaODTmKoSuRrOZ0CpfX4NDc6EJB5BMMIKdezV6uIXAcFZ3SSW-qYN2aKiLLs4ynZjDELvG3Kf9trtobfhIGWF81gLBYx')">
+<div class="absolute inset-0 bg-gradient-to-t from-primary/80 via-transparent to-transparent"></div>
+<div class="absolute top-3 left-3 flex gap-1.5">
+<span class="bg-surface-container-lowest/90 backdrop-blur-sm px-2.5 py-1 rounded text-label-code font-label-code text-primary shadow-sm flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]" data-icon="hub">hub</span> Seattle, WA
+              </span>
+</div>
+<div class="absolute bottom-3 left-3 text-on-primary">
+<span class="text-body-sm font-label-code bg-primary-container/80 px-2 py-0.5 rounded backdrop-blur-sm">Dec 15, 2025 • 13:00 PST</span>
+</div>
+</div>
+<div class="p-4 flex-1 flex flex-col justify-between space-y-3">
+<div>
+<div class="flex items-center gap-2 mb-1.5">
+<span class="text-label-badge font-label-badge px-2 py-0.5 rounded bg-surface-container text-primary">SYSTEMS PROGRAMMING</span>
+<span class="text-label-code font-label-code text-on-surface-variant text-[11px]">$299 Advanced</span>
+</div>
+<h2 class="text-headline-sm font-headline-sm font-bold text-on-surface hover:text-primary transition-colors">
+                High-Throughput Rust &amp; Zero-Copy Systems Masterclass
+              </h2>
+<p class="text-body-md font-body-md text-on-surface-variant mt-1 line-clamp-2">
+                Memory safety without runtime penalties: async tokio runtime internals, io_uring integration, and lock-free concurrent queues.
+              </p>
+</div>
+<!-- Tags -->
+<div class="flex flex-wrap gap-1.5 pt-1">
+<span class="px-2 py-0.5 rounded bg-surface-container-low text-primary text-[11px] font-label-code font-label-code">#Rust</span>
+<span class="px-2 py-0.5 rounded bg-surface-container-low text-primary text-[11px] font-label-code font-label-code">#Systems</span>
+<span class="px-2 py-0.5 rounded bg-surface-container-low text-primary text-[11px] font-label-code font-label-code">#Performance</span>
+</div>
+<!-- Capacity Progress -->
+<div class="space-y-1 pt-1">
+<div class="flex justify-between text-body-sm font-body-sm">
+<span class="text-on-surface-variant font-medium">95% filled</span>
+<span class="text-secondary font-semibold">4 seats left</span>
+</div>
+<div class="w-full bg-surface-container-high h-2 rounded-full overflow-hidden">
+<div class="bg-secondary-container h-full rounded-full transition-all duration-500" style="width: 95%"></div>
+</div>
+</div>
+<!-- Action Row -->
+<div class="pt-2 flex items-center gap-2 border-t border-surface-container-high">
+<button class="flex-1 py-2 px-3 rounded-lg border border-outline-variant bg-surface-container-lowest text-primary font-label-md text-label-md font-medium hover:bg-surface-container transition-colors text-center" onclick="triggerQuickToast('Opening session syllabus: Rust Masterclass')">
+                View Details
+              </button>
+<button class="flex-1 py-2 px-3 rounded-lg bg-primary-container text-on-primary font-label-md text-label-md font-semibold hover:bg-[#5b32cc] transition-colors text-center shadow-sm" onclick="openRegistrationModal('High-Throughput Rust Masterclass')">
+                Register Now
+              </button>
+</div>
+</div>
+</div>
+</div>
+</div>
+</main>
+<!-- Inline API Response Peek Drawer at Bottom -->
+<section class="mt-auto border-t border-surface-container-high bg-surface-container-lowest">
+<div class="max-w-[1280px] mx-auto px-space-md md:px-margin-tablet lg:px-margin-desktop py-3">
+<!-- Drawer Header Bar -->
+<div class="flex items-center justify-between cursor-pointer" onclick="toggleApiDrawer()">
+<div class="flex items-center gap-2">
+<span class="px-2 py-0.5 rounded bg-surface-container text-primary font-label-code text-label-code font-bold uppercase">GET</span>
+<span class="text-secondary font-label-code text-label-code font-bold">/api/events</span>
+<span class="px-2 py-0.5 rounded bg-[#d1fae5] text-[#065f46] text-label-code font-label-code">200 OK</span>
+<span class="hidden sm:inline text-body-sm font-body-sm text-on-surface-variant">• 12ms • Content-Type: application/json</span>
+</div>
+<div class="flex items-center gap-2 text-primary font-label-md text-label-md font-medium">
+<span id="drawer-toggle-text">Show JSON Response Payload</span>
+<span class="material-symbols-outlined transition-transform duration-200" data-icon="keyboard_arrow_up" id="drawer-icon">keyboard_arrow_up</span>
+</div>
+</div>
+<!-- Expandable Code Content -->
+<div class="hidden mt-3 pt-3 border-t border-surface-container-high font-label-code text-label-code" id="api-payload-panel">
+<div class="bg-surface-container-low rounded-lg p-3 border border-outline-variant/60 relative overflow-x-auto">
+<button class="absolute top-2.5 right-2.5 px-2.5 py-1 rounded bg-surface-container-lowest border border-outline-variant text-on-surface-variant hover:text-primary text-[11px] flex items-center gap-1 shadow-xs" onclick="navigator.clipboard.writeText(document.getElementById('json-code-block').innerText); triggerQuickToast('Copied JSON to clipboard!')">
+<span class="material-symbols-outlined text-[14px]" data-icon="content_copy">content_copy</span>
+<span>Copy</span>
+</button>
+<pre class="text-on-surface text-xs leading-relaxed" id="json-code-block"><code>{
+  "status": 200,
+  "endpoint": "/api/events",
+  "meta": {
+    "total": 142,
+    "page": 1,
+    "per_page": 6,
+    "query_execution_ms": 11.8
+  },
+  "data": [
+    {
+      "id": "evt_k8s_9021",
+      "slug": "global-k8s-cloud-native-2025",
+      "title": "Global Kubernetes &amp; Cloud Native Architecture Summit 2025",
+      "capacity": 300,
+      "registered_count": 266,
+      "format": "hybrid",
+      "tags": ["Kubernetes", "Cloud", "DevOps"],
+      "price_usd": 449.00,
+      "schedule": {
+        "start": "2025-10-24T09:00:00Z",
+        "location": "San Francisco, CA"
+      }
+    }
+  ]
+}</code></pre>
+</div>
+</div>
+</div>
+</section>
+<!-- Quick Feedback Toast Container -->
+<div class="fixed bottom-6 right-6 z-50 transform translate-y-20 opacity-0 transition-all duration-300 pointer-events-none bg-inverse-surface text-inverse-on-surface px-4 py-3 rounded-lg shadow-lg flex items-center gap-3 font-label-md text-label-md" id="toast">
+<span class="material-symbols-outlined text-[#10b981]" data-icon="check_circle">check_circle</span>
+<span id="toast-text">Registration details loaded</span>
+</div>
+<!-- Registration Modal Dialog (Level 4 Elevation) -->
+<div class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-inverse-surface/40 backdrop-blur-sm hidden opacity-0 transition-opacity duration-200" id="registration-modal">
+<div class="bg-surface-container-lowest rounded-xl border border-outline-variant/60 shadow-2xl max-w-lg w-full overflow-hidden transform scale-95 transition-transform duration-200" id="registration-modal-card">
+<!-- Modal Header -->
+<div class="p-4 border-b border-surface-container-high flex items-center justify-between bg-surface-container-low">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary" data-icon="confirmation_number">confirmation_number</span>
+<h3 class="text-headline-sm font-headline-sm font-bold text-on-surface">Quick Registration</h3>
+</div>
+<button class="text-on-surface-variant hover:text-primary rounded-lg p-1" onclick="closeRegistrationModal()">
+<span class="material-symbols-outlined" data-icon="close">close</span>
+</button>
+</div>
+<!-- Modal Body -->
+<div class="p-space-md space-y-3">
+<div class="p-2.5 rounded-lg bg-surface-container border border-surface-container-highest">
+<div class="text-[11px] font-label-code text-primary uppercase font-bold">Selected Event</div>
+<div class="font-headline-sm text-headline-sm text-on-surface" id="modal-event-name">Global Kubernetes Summit</div>
+</div>
+<form class="space-y-3" id="reg-form" onsubmit="submitRegistration(event)">
+<div>
+<label class="block text-body-sm font-label-md text-on-surface font-semibold mb-1">Developer Full Name</label>
+<input class="w-full px-3 py-2 bg-surface-container-lowest border border-outline-variant rounded-lg text-body-md focus:border-primary focus:ring-2 focus:ring-primary/15 outline-none" required="" type="text" value="Alex Vance"/>
+</div>
+<div>
+<label class="block text-body-sm font-label-md text-on-surface font-semibold mb-1">Work Email</label>
+<input class="w-full px-3 py-2 bg-surface-container-lowest border border-outline-variant rounded-lg text-body-md focus:border-primary focus:ring-2 focus:ring-primary/15 outline-none" required="" type="email" value="alex.vance@techcorp.io"/>
+</div>
+<div>
+<label class="block text-body-sm font-label-md text-on-surface font-semibold mb-1">Ticket Tier</label>
+<select class="w-full px-3 py-2 bg-surface-container-lowest border border-outline-variant rounded-lg text-body-md focus:border-primary focus:ring-2 focus:ring-primary/15 outline-none">
+<option>Full Access Developer Pass (Includes Workshops)</option>
+<option>Virtual Livestream Pass (Free)</option>
+</select>
+</div>
+<div class="p-2.5 rounded-lg bg-surface-container-low border border-surface-container-high flex items-center justify-between text-body-sm font-label-code">
+<span class="text-on-surface-variant">Webhook Dispatch:</span>
+<span class="text-primary font-bold">POST /api/v1/registrations</span>
+</div>
+<div class="pt-2 flex items-center justify-end gap-2 border-t border-surface-container-high">
+<button class="px-4 py-2 rounded-lg border border-outline-variant text-on-surface-variant hover:bg-surface-container font-label-md text-label-md font-medium" onclick="closeRegistrationModal()" type="button">Cancel</button>
+<button class="px-5 py-2 rounded-lg bg-primary-container hover:bg-[#5b32cc] text-on-primary font-label-md text-label-md font-semibold shadow-sm transition-all" type="submit">Complete Registration</button>
+</div>
+</form>
+</div>
+</div>
+</div>
+<!-- Interactive JavaScript Logic -->
+<script>
+    function triggerQuickToast(message) {
+      const toast = document.getElementById('toast');
+      const text = document.getElementById('toast-text');
+      text.innerText = message;
+      toast.classList.remove('translate-y-20', 'opacity-0', 'pointer-events-none');
+      setTimeout(() => {
+        toast.classList.add('translate-y-20', 'opacity-0', 'pointer-events-none');
+      }, 3200);
+    }
+
+    function toggleApiDrawer() {
+      const panel = document.getElementById('api-payload-panel');
+      const toggleText = document.getElementById('drawer-toggle-text');
+      const icon = document.getElementById('drawer-icon');
+
+      if (panel.classList.contains('hidden')) {
+        panel.classList.remove('hidden');
+        toggleText.innerText = 'Hide JSON Response Payload';
+        icon.classList.add('rotate-180');
+      } else {
+        panel.classList.add('hidden');
+        toggleText.innerText = 'Show JSON Response Payload';
+        icon.classList.remove('rotate-180');
+      }
+    }
+
+    document.getElementById('toggle-json-bar').addEventListener('click', toggleApiDrawer);
+
+    function openRegistrationModal(eventName) {
+      const modal = document.getElementById('registration-modal');
+      const card = document.getElementById('registration-modal-card');
+      document.getElementById('modal-event-name').innerText = eventName;
+      modal.classList.remove('hidden');
+      setTimeout(() => {
+        modal.classList.remove('opacity-0');
+        card.classList.remove('scale-95');
+      }, 10);
+    }
+
+    function closeRegistrationModal() {
+      const modal = document.getElementById('registration-modal');
+      const card = document.getElementById('registration-modal-card');
+      card.classList.add('scale-95');
+      modal.classList.add('opacity-0');
+      setTimeout(() => {
+        modal.classList.add('hidden');
+      }, 200);
+    }
+
+    function submitRegistration(e) {
+      e.preventDefault();
+      closeRegistrationModal();
+      triggerQuickToast('201 Created: Registration ticket confirmed & QR sent!');
+    }
+
+    function resetFilters() {
+      triggerQuickToast('Filters reset to default view');
+    }
+  </script>
+</body></html>

@@ -1,0 +1,922 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Event Pulse - Organizer Attendee Roster &amp; REST API Console</title>
+<!-- Material Symbols Outlined -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Google Fonts: Inter & Plus Jakarta Sans & JetBrains Mono -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=JetBrains+Mono:wght@500;600;700&amp;family=Plus+Jakarta+Sans:wght@600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS CDN -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<!-- Verbatim Tailwind Config -->
+<script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          "colors": {
+            "surface": "#fcf8ff",
+            "surface-container-highest": "#e3dfff",
+            "on-surface": "#181445",
+            "primary-container": "#4a24b2",
+            "on-tertiary-fixed-variant": "#464555",
+            "inverse-primary": "#ccbeff",
+            "on-primary-container": "#b9a6ff",
+            "on-tertiary-fixed": "#1b1a29",
+            "inverse-surface": "#2d2a5b",
+            "error": "#ba1a1a",
+            "on-error": "#ffffff",
+            "tertiary-container": "#454354",
+            "primary-fixed-dim": "#ccbeff",
+            "tertiary-fixed": "#e4e0f5",
+            "inverse-on-surface": "#f3eeff",
+            "error-container": "#ffdad6",
+            "on-secondary-container": "#571a00",
+            "on-tertiary": "#ffffff",
+            "on-primary": "#ffffff",
+            "surface-container-lowest": "#ffffff",
+            "on-secondary-fixed": "#370e00",
+            "primary": "#330093",
+            "on-background": "#181445",
+            "background": "#fcf8ff",
+            "surface-container-high": "#e9e5ff",
+            "on-error-container": "#93000a",
+            "on-tertiary-container": "#b3b0c4",
+            "surface-bright": "#fcf8ff",
+            "surface-container-low": "#f6f2ff",
+            "primary-fixed": "#e7deff",
+            "surface-container": "#efebff",
+            "surface-tint": "#6444cd",
+            "outline-variant": "#cac4d6",
+            "on-surface-variant": "#484554",
+            "surface-dim": "#dad6ff",
+            "tertiary-fixed-dim": "#c7c4d8",
+            "on-secondary": "#ffffff",
+            "on-secondary-fixed-variant": "#7f2b00",
+            "secondary-fixed": "#ffdbce",
+            "tertiary": "#2e2d3d",
+            "secondary": "#a73a00",
+            "secondary-container": "#fd651e",
+            "outline": "#797585",
+            "on-primary-fixed-variant": "#4c27b4",
+            "surface-variant": "#e3dfff",
+            "on-primary-fixed": "#1e0060",
+            "secondary-fixed-dim": "#ffb599"
+          },
+          "borderRadius": {
+            "DEFAULT": "0.25rem",
+            "lg": "0.5rem",
+            "xl": "0.75rem",
+            "full": "9999px"
+          },
+          "spacing": {
+            "space-md": "1rem",
+            "gutter": "1rem",
+            "space-xl": "2.5rem",
+            "space-sm": "0.5rem",
+            "margin": "1rem",
+            "space-xs": "0.25rem",
+            "margin-tablet": "2rem",
+            "gutter-desktop": "1.5rem",
+            "margin-desktop": "3rem",
+            "space-lg": "1.5rem"
+          },
+          "fontFamily": {
+            "label-code": [
+              "JetBrains Mono"
+            ],
+            "display-lg": [
+              "Plus Jakarta Sans"
+            ],
+            "headline-lg": [
+              "Plus Jakarta Sans"
+            ],
+            "body-lg": [
+              "Inter"
+            ],
+            "headline-sm": [
+              "Plus Jakarta Sans"
+            ],
+            "display-lg-mobile": [
+              "Plus Jakarta Sans"
+            ],
+            "body-sm": [
+              "Inter"
+            ],
+            "label-md": [
+              "Inter"
+            ],
+            "headline-md": [
+              "Plus Jakarta Sans"
+            ],
+            "body-md": [
+              "Inter"
+            ],
+            "label-badge": [
+              "Plus Jakarta Sans"
+            ]
+          },
+          "fontSize": {
+            "label-code": [
+              "13px",
+              {
+                "lineHeight": "18px",
+                "fontWeight": "600"
+              }
+            ],
+            "display-lg": [
+              "40px",
+              {
+                "lineHeight": "48px",
+                "letterSpacing": "-0.02em",
+                "fontWeight": "700"
+              }
+            ],
+            "headline-lg": [
+              "28px",
+              {
+                "lineHeight": "36px",
+                "letterSpacing": "-0.01em",
+                "fontWeight": "600"
+              }
+            ],
+            "body-lg": [
+              "16px",
+              {
+                "lineHeight": "24px",
+                "fontWeight": "400"
+              }
+            ],
+            "headline-sm": [
+              "18px",
+              {
+                "lineHeight": "24px",
+                "fontWeight": "600"
+              }
+            ],
+            "display-lg-mobile": [
+              "30px",
+              {
+                "lineHeight": "38px",
+                "letterSpacing": "-0.01em",
+                "fontWeight": "700"
+              }
+            ],
+            "body-sm": [
+              "12px",
+              {
+                "lineHeight": "16px",
+                "fontWeight": "400"
+              }
+            ],
+            "label-md": [
+              "14px",
+              {
+                "lineHeight": "20px",
+                "fontWeight": "500"
+              }
+            ],
+            "headline-md": [
+              "22px",
+              {
+                "lineHeight": "28px",
+                "fontWeight": "600"
+              }
+            ],
+            "body-md": [
+              "14px",
+              {
+                "lineHeight": "20px",
+                "fontWeight": "400"
+              }
+            ],
+            "label-badge": [
+              "12px",
+              {
+                "lineHeight": "16px",
+                "letterSpacing": "0.04em",
+                "fontWeight": "700"
+              }
+            ]
+          }
+        },
+      },
+    }
+  </script>
+<style>
+    .material-symbols-outlined {
+      font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+      display: inline-block;
+      vertical-align: middle;
+      line-height: 1;
+    }
+    /* Ambient scrollbars for technical code blocks */
+    ::-webkit-scrollbar {
+      width: 6px;
+      height: 6px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #f6f2ff;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #cac4d6;
+      border-radius: 9999px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: #797585;
+    }
+  </style>
+</head>
+<body class="bg-background text-on-surface antialiased min-h-screen flex flex-col font-body-md text-body-md selection:bg-surface-container-highest selection:text-primary">
+<!-- TOPNAVBAR (Shared Component Exact Blueprint) -->
+<header class="bg-surface-container-lowest dark:bg-inverse-surface border-b border-surface-container-high dark:border-outline-variant shadow-sm dark:shadow-none sticky top-0 z-50">
+<div class="flex justify-between items-center w-full px-space-md md:px-margin-tablet lg:px-margin-desktop max-w-[1280px] mx-auto h-16">
+<!-- Brand & Left Cluster -->
+<div class="flex items-center gap-space-lg">
+<a class="flex items-center gap-space-sm group" href="#">
+<span class="w-8 h-8 rounded-lg bg-primary-container text-on-primary flex items-center justify-center font-display-lg font-bold text-headline-sm transition-all duration-150 group-hover:scale-95 shadow-sm">
+            EP
+          </span>
+<span class="text-headline-sm font-headline-sm font-bold text-primary dark:text-inverse-primary tracking-tight">
+            Event Pulse
+          </span>
+</a>
+<!-- Organization Switcher Pill -->
+<div class="hidden lg:flex items-center gap-space-xs bg-surface-container-low px-space-sm py-1.5 rounded-lg border border-surface-container-high">
+<span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+<span class="font-label-code text-label-code text-primary font-semibold">Event Pulse Dev Org • Production</span>
+<span class="material-symbols-outlined text-[16px] text-on-surface-variant cursor-pointer">arrow_drop_down</span>
+</div>
+</div>
+<!-- Navigation Links (Active: Organizer Hub) -->
+<nav class="hidden md:flex items-center gap-space-md">
+<a class="text-on-surface-variant dark:text-surface-container-highest font-medium text-label-md font-label-md px-space-xs py-1 hover:bg-surface-container dark:hover:bg-tertiary-container hover:text-primary dark:hover:text-inverse-primary rounded-lg transition-colors" href="#">
+          Events
+        </a>
+<a class="text-on-surface-variant dark:text-surface-container-highest font-medium text-label-md font-label-md px-space-xs py-1 hover:bg-surface-container dark:hover:bg-tertiary-container hover:text-primary dark:hover:text-inverse-primary rounded-lg transition-colors" href="#">
+          My Registrations
+        </a>
+<a class="text-primary dark:text-inverse-primary font-semibold border-b-2 border-primary dark:border-inverse-primary pb-1 text-label-md font-label-md" href="#">
+          Organizer Hub
+        </a>
+<a class="text-on-surface-variant dark:text-surface-container-highest font-medium text-label-md font-label-md px-space-xs py-1 hover:bg-surface-container dark:hover:bg-tertiary-container hover:text-primary dark:hover:text-inverse-primary rounded-lg transition-colors" href="#">
+          API Docs
+        </a>
+</nav>
+<!-- Trailing Action Cluster -->
+<div class="flex items-center gap-space-sm">
+<!-- API Console shortcut button -->
+<button class="hidden sm:inline-flex items-center gap-space-xs font-label-code text-label-code px-3 py-1.5 rounded-lg border border-outline-variant text-primary-container bg-surface-container-low hover:bg-surface-container transition-colors" id="scrollToConsoleBtn">
+<span class="material-symbols-outlined text-[18px]">terminal</span>
+<span>API Console</span>
+</button>
+<!-- Notification Icon -->
+<button aria-label="Notifications" class="p-2 text-on-surface-variant hover:text-primary rounded-lg hover:bg-surface-container transition-all duration-150 active:scale-95 relative">
+<span class="material-symbols-outlined text-[20px]">notifications</span>
+<span class="absolute top-1.5 right-1.5 w-2 h-2 rounded-full bg-secondary-container"></span>
+</button>
+<!-- Create Event Primary CTA -->
+<button class="bg-primary hover:bg-primary-container text-on-primary font-label-md text-label-md px-space-md py-2 rounded-lg transition-all duration-150 active:scale-95 shadow-sm hidden sm:block">
+          Create Event
+        </button>
+<!-- User Profile Avatar with compliant image generation -->
+<div class="w-8 h-8 rounded-full overflow-hidden border border-primary-fixed ml-space-xs">
+<img alt="User profile avatar" class="w-full h-full object-cover" data-alt="A professional headshot of a software engineer with glasses smiling warmly against a soft studio backdrop illuminated by subtle warm violet and indigo key lights in a high-tech modern setting." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCl-2y4kkdIXex-ifFVcE7gFuDIOGVNnMhCUlrEJm5Bk-qgmyXW3gKokfUo3cA9jL5UwzDXdJs_CcZbiEjtauSsjpCgqaUegXQLJv8wLgK29oYRIvcfuj8DyMiRBTrnnxuQBg_STYLPtlqfLiNQQ_uBTW2_zdm38os5YpdqutZ9tUUCYIKvJe0FOd_jyvFfMySeSO367JDrU7HUCd2S17uefNOQN-5qVY5tIiEWm9PU"/>
+</div>
+</div>
+</div>
+</header>
+<!-- MAIN CANVAS -->
+<main class="flex-1 w-full max-w-[1280px] mx-auto px-space-md md:px-margin-tablet lg:px-margin-desktop py-space-lg flex flex-col gap-space-lg">
+<!-- EVENT SELECTOR HEADER & SECURITY BANNER -->
+<div class="flex flex-col md:flex-row md:items-center justify-between gap-space-md bg-surface-container-lowest p-space-md rounded-xl border border-surface-container-high shadow-sm">
+<div class="flex flex-col sm:flex-row sm:items-center gap-space-md">
+<div>
+<span class="text-body-sm font-body-sm text-outline uppercase tracking-wider block">Scope Context</span>
+<div class="relative inline-block mt-0.5">
+<select class="appearance-none bg-surface-container-low hover:bg-surface-container text-on-surface font-headline-sm text-headline-sm font-bold pr-10 pl-3 py-1.5 rounded-lg border border-outline-variant cursor-pointer transition-colors focus:ring-2 focus:ring-primary focus:outline-none">
+<option selected="">Cloud Native Summit 2025</option>
+<option>Distributed Systems World 2025</option>
+<option>GraphQL Con &amp; Edge Compute Fest</option>
+</select>
+<span class="material-symbols-outlined absolute right-2.5 top-1/2 -translate-y-1/2 pointer-events-none text-on-surface-variant">expand_more</span>
+</div>
+</div>
+<div class="h-8 w-px bg-surface-container-high hidden sm:block"></div>
+<!-- Security Pill -->
+<div class="flex items-center gap-space-xs px-3 py-1.5 rounded-lg bg-surface-container text-primary font-label-code text-label-code border border-surface-container-high">
+<span class="material-symbols-outlined text-[16px] text-primary" style="font-variation-settings: 'FILL' 1;">lock</span>
+<span>Owning Organizer View - Authenticated as <strong class="text-primary-container font-semibold">org_eventpulse_admin</strong></span>
+</div>
+</div>
+<div class="flex items-center gap-space-sm self-start md:self-auto">
+<span class="font-label-code text-label-code text-outline bg-surface-container-low px-2.5 py-1 rounded">event_id: <span class="text-on-surface font-semibold">evt_cns2025_99x</span></span>
+<button class="text-on-surface-variant hover:text-primary p-1.5 rounded hover:bg-surface-container transition-colors" title="Copy Event ID">
+<span class="material-symbols-outlined text-[18px]">content_copy</span>
+</button>
+</div>
+</div>
+<!-- METRICS BENTO GRID -->
+<section class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-space-md">
+<!-- Total Registered -->
+<div class="bg-surface-container-lowest p-space-md rounded-xl border border-surface-container-high shadow-sm hover:border-outline-variant transition-all">
+<div class="flex justify-between items-start">
+<span class="text-body-sm font-body-sm text-outline">Total Registered</span>
+<span class="p-2 rounded-lg bg-surface-container text-primary">
+<span class="material-symbols-outlined text-[20px]">how_to_reg</span>
+</span>
+</div>
+<div class="mt-2 flex items-baseline gap-2">
+<span class="text-headline-lg font-headline-lg font-bold text-on-surface">428</span>
+<span class="text-body-md font-body-md text-outline">/ 500 capacity</span>
+</div>
+<div class="w-full bg-surface-container-high h-2 rounded-full mt-3 overflow-hidden">
+<div class="bg-primary-container h-full rounded-full" style="width: 85.6%;"></div>
+</div>
+<span class="font-label-code text-label-code text-primary mt-2 block">85.6% reserved</span>
+</div>
+<!-- Check-in Ready -->
+<div class="bg-surface-container-lowest p-space-md rounded-xl border border-surface-container-high shadow-sm hover:border-outline-variant transition-all">
+<div class="flex justify-between items-start">
+<span class="text-body-sm font-body-sm text-outline">Check-in Ready</span>
+<span class="p-2 rounded-lg bg-surface-container text-emerald-700">
+<span class="material-symbols-outlined text-[20px]">qr_code_scanner</span>
+</span>
+</div>
+<div class="mt-2 flex items-baseline gap-2">
+<span class="text-headline-lg font-headline-lg font-bold text-on-surface">389</span>
+<span class="text-body-sm font-body-sm font-medium text-emerald-700">QR Validated</span>
+</div>
+<div class="mt-3 flex items-center gap-1.5 text-body-sm font-body-sm text-on-surface-variant">
+<span class="material-symbols-outlined text-[16px] text-emerald-600">verified</span>
+<span>90.8% readiness rate</span>
+</div>
+</div>
+<!-- VIP Passes -->
+<div class="bg-surface-container-lowest p-space-md rounded-xl border border-surface-container-high shadow-sm hover:border-outline-variant transition-all">
+<div class="flex justify-between items-start">
+<span class="text-body-sm font-body-sm text-outline">VIP Passes</span>
+<span class="p-2 rounded-lg bg-surface-container text-secondary">
+<span class="material-symbols-outlined text-[20px]">stars</span>
+</span>
+</div>
+<div class="mt-2 flex items-baseline gap-2">
+<span class="text-headline-lg font-headline-lg font-bold text-on-surface">42</span>
+<span class="text-body-sm font-body-sm text-secondary font-medium">All-Access Tier</span>
+</div>
+<div class="mt-3 flex items-center gap-1.5 text-body-sm font-body-sm text-outline">
+<span>8 back-stage passes active</span>
+</div>
+</div>
+<!-- Registration Velocity -->
+<div class="bg-surface-container-lowest p-space-md rounded-xl border border-surface-container-high shadow-sm hover:border-outline-variant transition-all">
+<div class="flex justify-between items-start">
+<span class="text-body-sm font-body-sm text-outline">Velocity (Today)</span>
+<span class="p-2 rounded-lg bg-surface-container text-secondary-container">
+<span class="material-symbols-outlined text-[20px]">trending_up</span>
+</span>
+</div>
+<div class="mt-2 flex items-baseline gap-2">
+<span class="text-headline-lg font-headline-lg font-bold text-secondary">+34</span>
+<span class="text-body-sm font-body-sm text-outline">new signups</span>
+</div>
+<div class="mt-3 flex items-center gap-1 text-label-code font-label-code text-secondary font-semibold">
+<span class="material-symbols-outlined text-[16px]">bolt</span>
+<span>Peak: 6 req/min via API</span>
+</div>
+</div>
+</section>
+<!-- ATTENDEE ROSTER SECTION -->
+<section class="bg-surface-container-lowest rounded-xl border border-surface-container-high shadow-sm overflow-hidden flex flex-col">
+<!-- Toolbar Header -->
+<div class="p-space-md border-b border-surface-container-high flex flex-col md:flex-row md:items-center justify-between gap-space-md bg-surface-container-lowest">
+<div>
+<h2 class="text-headline-sm font-headline-sm text-on-surface font-bold">Attendee Roster</h2>
+<p class="text-body-sm font-body-sm text-outline">Manage registrations, check-in status, and webhook dispatch events</p>
+</div>
+<!-- Filter & Search Controls -->
+<div class="flex flex-wrap items-center gap-space-sm">
+<!-- Search input -->
+<div class="relative min-w-[240px]">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-outline text-[18px]">search</span>
+<input class="w-full pl-9 pr-3 py-1.5 text-body-md font-body-md rounded-lg border border-outline-variant bg-surface-container-low focus:bg-surface-container-lowest focus:ring-2 focus:ring-primary focus:border-primary transition-all text-on-surface placeholder:text-outline" placeholder="Search name, email, or reg_id..." type="text"/>
+</div>
+<!-- Status filter dropdown -->
+<select class="py-1.5 px-3 rounded-lg border border-outline-variant bg-surface-container-low text-body-md font-body-md text-on-surface focus:ring-2 focus:ring-primary focus:border-primary">
+<option value="all">Status: All (428)</option>
+<option value="confirmed">Confirmed</option>
+<option value="checked-in">Checked-in</option>
+<option value="cancelled">Cancelled</option>
+</select>
+<!-- Bulk Actions -->
+<div class="flex items-center gap-2">
+<button class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-surface-container-high hover:bg-surface-container text-primary font-label-md text-label-md transition-colors">
+<span class="material-symbols-outlined text-[18px]">download</span>
+<span>Export CSV</span>
+</button>
+<button class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-surface-container hover:bg-surface-container-high text-primary font-label-md text-label-md transition-colors">
+<span class="material-symbols-outlined text-[18px]">outgoing_mail</span>
+<span>Broadcast Email</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Data Table -->
+<div class="overflow-x-auto w-full">
+<table class="w-full text-left border-collapse">
+<thead>
+<tr class="bg-surface-container text-on-surface font-headline-sm text-body-sm border-b border-surface-container-high">
+<th class="py-3 px-4 font-semibold">Attendee</th>
+<th class="py-3 px-4 font-semibold">Email</th>
+<th class="py-3 px-4 font-semibold">Registration ID</th>
+<th class="py-3 px-4 font-semibold">Registered At</th>
+<th class="py-3 px-4 font-semibold">Ticket Type</th>
+<th class="py-3 px-4 font-semibold">Status</th>
+<th class="py-3 px-4 font-semibold text-right">Quick Actions</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-surface-container-high text-body-md font-body-md">
+<!-- Row 1 -->
+<tr class="hover:bg-surface-container-low transition-colors group">
+<td class="py-3 px-4">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 rounded-full overflow-hidden border border-outline-variant flex-shrink-0">
+<img alt="Elena Rostova" class="w-full h-full object-cover" data-alt="Close up photographic portrait of a female software architect with short dark hair in front of minimal ambient violet architectural studio lights." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBb0JH6Z_G6emwixQWP48jwN4mGPVsGD4HiKCHZzzUmyneI_VMGJAVIV9fg8mTnVzlAJTAoll1Vsl-7qOMQCppB-tkGD1Eqk2ZWLnsBlfmbrjJwjbTBlGUXjKi_hR-TCMikyw4EQvwd7okaJX2sKQlRmvbQ2SDfK5n2h_TyX7sUVkZ_r8Tw0lKgLG_-ByABY5UQ0ykDpNgh-DNtrvqKS1KOSJrrIve32MXqtAPuyoAd"/>
+</div>
+<div>
+<span class="font-semibold text-on-surface block leading-tight">Elena Rostova</span>
+<span class="text-body-sm font-body-sm text-outline">Staff Site Reliability Engineer</span>
+</div>
+</div>
+</td>
+<td class="py-3 px-4 font-label-code text-label-code text-on-surface-variant">elena.rostova@cloudscale.io</td>
+<td class="py-3 px-4 font-label-code text-label-code text-primary font-semibold">reg_89af321c0b</td>
+<td class="py-3 px-4 text-on-surface-variant font-label-code text-body-sm">2025-05-12 14:22:09</td>
+<td class="py-3 px-4">
+<span class="inline-flex items-center px-2 py-0.5 rounded text-xs font-semibold bg-surface-container text-primary">
+                  VIP All-Access
+                </span>
+</td>
+<td class="py-3 px-4">
+<span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-xs font-semibold bg-emerald-100 text-emerald-800">
+<span class="w-1.5 h-1.5 rounded-full bg-emerald-600"></span>
+                  Checked-in
+                </span>
+</td>
+<td class="py-3 px-4 text-right">
+<div class="inline-flex items-center gap-1 opacity-90 group-hover:opacity-100">
+<button class="p-1 rounded hover:bg-surface-container text-outline hover:text-primary" disabled="" title="Checked-in">
+<span class="material-symbols-outlined text-[18px] text-emerald-700">check_circle</span>
+</button>
+<button class="p-1 rounded hover:bg-surface-container text-outline hover:text-primary" title="Resend Pass">
+<span class="material-symbols-outlined text-[18px]">forward_to_inbox</span>
+</button>
+<button class="p-1 rounded hover:bg-error-container text-outline hover:text-error" title="Revoke Ticket">
+<span class="material-symbols-outlined text-[18px]">cancel</span>
+</button>
+</div>
+</td>
+</tr>
+<!-- Row 2 -->
+<tr class="hover:bg-surface-container-low transition-colors group">
+<td class="py-3 px-4">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 rounded-full overflow-hidden border border-outline-variant flex-shrink-0">
+<img alt="Marcus Chen" class="w-full h-full object-cover" data-alt="Portrait of a young male devops professional wearing a gray hoodie against modern soft lavender and white studio light aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCx4reHvTpiRLsub3hoxhM4zJParut4U_fzocIWsNefKC2uAsKBeDH4qnmqj4S6T3nJbnrgMVwQwNeljZF2rV0vmGdLFBkNk4pjHRTJROWWga1m1le0WYfbQROsR-EirjLtmA9jKNssBUHx-hkrd0HtjrqFO9fPs3u9INKe0hwI-6dC_E3gqTqRV8JrXqz1jVKMqRG4_Wfqr2-g3kA1yIy3HpmplJGOImbxLaGr3QqA"/>
+</div>
+<div>
+<span class="font-semibold text-on-surface block leading-tight">Marcus Chen</span>
+<span class="text-body-sm font-body-sm text-outline">Lead Infrastructure Dev</span>
+</div>
+</div>
+</td>
+<td class="py-3 px-4 font-label-code text-label-code text-on-surface-variant">mchen@kubepulse.net</td>
+<td class="py-3 px-4 font-label-code text-label-code text-primary font-semibold">reg_44bc910a3d</td>
+<td class="py-3 px-4 text-on-surface-variant font-label-code text-body-sm">2025-05-12 16:45:10</td>
+<td class="py-3 px-4">
+<span class="inline-flex items-center px-2 py-0.5 rounded text-xs font-semibold bg-surface-container-high text-on-surface">
+                  General Admission
+                </span>
+</td>
+<td class="py-3 px-4">
+<span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-xs font-semibold bg-blue-100 text-blue-800">
+<span class="w-1.5 h-1.5 rounded-full bg-blue-600"></span>
+                  Confirmed
+                </span>
+</td>
+<td class="py-3 px-4 text-right">
+<div class="inline-flex items-center gap-1 opacity-90 group-hover:opacity-100">
+<button class="px-2 py-1 rounded bg-primary text-on-primary hover:bg-primary-container text-xs font-label-md" title="Perform Fast Check-in">
+                    Check-in
+                  </button>
+<button class="p-1 rounded hover:bg-surface-container text-outline hover:text-primary" title="Resend Pass">
+<span class="material-symbols-outlined text-[18px]">forward_to_inbox</span>
+</button>
+<button class="p-1 rounded hover:bg-error-container text-outline hover:text-error" title="Revoke Ticket">
+<span class="material-symbols-outlined text-[18px]">cancel</span>
+</button>
+</div>
+</td>
+</tr>
+<!-- Row 3 -->
+<tr class="hover:bg-surface-container-low transition-colors group">
+<td class="py-3 px-4">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 rounded-full overflow-hidden border border-outline-variant flex-shrink-0">
+<img alt="Sarah Adisa" class="w-full h-full object-cover" data-alt="Portrait of an African engineer with neat braids smiling softly against crisp technical minimal workspace lighting in violet tones." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCB859oG0HjC-dfYwO6s56hc5dq241HQeJlYi1j19LMcqO0wBnXhdAMXzGKGrBUzNZvTkNp-oVKnDdjE0hp0aS4xGGcb2OYVsF0OCYom7uO2nDRmEvQ1mGgSpSvM2PUv4xD_vdMFjiFXwiVCfmXqWZ_qgyeh0zVheL2yVpKpc3Sag0fmGfQNlcfeOC2I-QQg_Bw-7Va5_CpNZLpHNHj_F_GhbO5S1O0yg4HWZ_rUtoI"/>
+</div>
+<div>
+<span class="font-semibold text-on-surface block leading-tight">Sarah Adisa</span>
+<span class="text-body-sm font-body-sm text-outline">Open Source Contributor</span>
+</div>
+</div>
+</td>
+<td class="py-3 px-4 font-label-code text-label-code text-on-surface-variant">sadisa@edgekernel.org</td>
+<td class="py-3 px-4 font-label-code text-label-code text-primary font-semibold">reg_19ef5889fa</td>
+<td class="py-3 px-4 text-on-surface-variant font-label-code text-body-sm">2025-05-13 08:14:32</td>
+<td class="py-3 px-4">
+<span class="inline-flex items-center px-2 py-0.5 rounded text-xs font-semibold bg-surface-container text-primary">
+                  Speaker / VIP
+                </span>
+</td>
+<td class="py-3 px-4">
+<span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-xs font-semibold bg-emerald-100 text-emerald-800">
+<span class="w-1.5 h-1.5 rounded-full bg-emerald-600"></span>
+                  Checked-in
+                </span>
+</td>
+<td class="py-3 px-4 text-right">
+<div class="inline-flex items-center gap-1 opacity-90 group-hover:opacity-100">
+<button class="p-1 rounded hover:bg-surface-container text-outline hover:text-primary" disabled="" title="Checked-in">
+<span class="material-symbols-outlined text-[18px] text-emerald-700">check_circle</span>
+</button>
+<button class="p-1 rounded hover:bg-surface-container text-outline hover:text-primary" title="Resend Pass">
+<span class="material-symbols-outlined text-[18px]">forward_to_inbox</span>
+</button>
+<button class="p-1 rounded hover:bg-error-container text-outline hover:text-error" title="Revoke Ticket">
+<span class="material-symbols-outlined text-[18px]">cancel</span>
+</button>
+</div>
+</td>
+</tr>
+<!-- Row 4 (Cancelled / 409 reference) -->
+<tr class="hover:bg-surface-container-low transition-colors group bg-red-50/20">
+<td class="py-3 px-4">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 rounded-full overflow-hidden border border-outline-variant flex-shrink-0">
+<img alt="Julian Meyer" class="w-full h-full object-cover" data-alt="Portrait of a modern software product director with beard looking directly at camera with subtle lavender key lighting and bright studio setup." src="https://lh3.googleusercontent.com/aida-public/AB6AXuC8AXcxhcDeEMDAG2wUJ8wM3al0CihE6jnd0LrhaA-Dq5Byaw7ccibYkny7OI6qAva1pI5NqYmPRg780gL58qlUc3CG0WPOJ_auSR-TrT_D27h7V1QNcpwRRcd6bfErMWSDXWJT1J7NXwSadSIQLZlu6yQwA0YG3XeCFyWWNqjdWyoTqxvx3MonM5AdZZSeD5RYtPynwTIwmU9LNvTf6q70i2w1uEd9OzPzbFiPV32i"/>
+</div>
+<div>
+<span class="font-semibold text-on-surface block leading-tight">Julian Meyer</span>
+<span class="text-body-sm font-body-sm text-outline">Product Director</span>
+</div>
+</div>
+</td>
+<td class="py-3 px-4 font-label-code text-label-code text-on-surface-variant">jmeyer@berlin-tech.de</td>
+<td class="py-3 px-4 font-label-code text-label-code text-outline font-semibold line-through">reg_01fe9923bb</td>
+<td class="py-3 px-4 text-outline font-label-code text-body-sm">2025-05-13 11:30:19</td>
+<td class="py-3 px-4">
+<span class="inline-flex items-center px-2 py-0.5 rounded text-xs font-semibold bg-surface-container-high text-outline">
+                  General Admission
+                </span>
+</td>
+<td class="py-3 px-4">
+<span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-xs font-semibold bg-error-container text-on-error-container">
+<span class="w-1.5 h-1.5 rounded-full bg-error"></span>
+                  Cancelled
+                </span>
+</td>
+<td class="py-3 px-4 text-right">
+<div class="inline-flex items-center gap-1 opacity-90 group-hover:opacity-100">
+<span class="text-body-sm font-body-sm text-outline italic mr-2">Seat Refunded</span>
+<button class="p-1 rounded hover:bg-surface-container text-outline hover:text-primary" title="Audit Log">
+<span class="material-symbols-outlined text-[18px]">history</span>
+</button>
+</div>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<!-- Pagination Footer -->
+<div class="p-space-sm px-space-md border-t border-surface-container-high flex items-center justify-between text-body-sm font-body-sm text-outline bg-surface-container-low">
+<span>Showing 1-4 of 428 registered attendees</span>
+<div class="flex items-center gap-2">
+<button class="p-1 rounded hover:bg-surface-container text-on-surface-variant disabled:opacity-30" disabled="">
+<span class="material-symbols-outlined text-[20px]">chevron_left</span>
+</button>
+<span class="font-label-code text-label-code text-on-surface font-semibold px-2 py-0.5 bg-surface-container-lowest rounded border border-surface-container-high">Page 1 / 107</span>
+<button class="p-1 rounded hover:bg-surface-container text-on-surface-variant">
+<span class="material-symbols-outlined text-[20px]">chevron_right</span>
+</button>
+</div>
+</div>
+</section>
+<!-- BUILT-IN INTERACTIVE REST API CONSOLE (BOTTOM PANEL) -->
+<section class="bg-surface-container-lowest rounded-xl border border-surface-container-high shadow-md overflow-hidden flex flex-col" id="apiConsolePanel">
+<!-- Console Top Header -->
+<div class="bg-surface-container p-space-md border-b border-surface-container-high flex flex-col md:flex-row md:items-center justify-between gap-space-sm">
+<div class="flex items-center gap-space-sm">
+<span class="w-8 h-8 rounded-lg bg-primary-container text-on-primary flex items-center justify-center">
+<span class="material-symbols-outlined text-[20px]">terminal</span>
+</span>
+<div>
+<div class="flex items-center gap-2">
+<h3 class="font-headline-sm text-headline-sm font-bold text-primary">REST API Live Console</h3>
+<span class="px-2 py-0.5 rounded text-xs font-label-code font-bold bg-emerald-100 text-emerald-800">200 OK LIVE</span>
+</div>
+<p class="text-body-sm font-body-sm text-on-surface-variant">Debug endpoints with live OAuth token &amp; view serialized responses</p>
+</div>
+</div>
+<div class="flex items-center gap-space-sm">
+<span class="font-label-code text-label-code text-outline hidden sm:inline">Base: https://api.eventpulse.dev/v1</span>
+<button class="text-body-sm font-body-sm text-primary hover:underline flex items-center gap-1 font-semibold">
+<span class="material-symbols-outlined text-[16px]">menu_book</span>
+<span>Open API Spec 3.1</span>
+</button>
+</div>
+</div>
+<!-- Endpoints Tabs Bar -->
+<div class="bg-surface-container-low px-space-md pt-2 border-b border-surface-container-high overflow-x-auto">
+<div class="flex space-x-2" role="tablist">
+<!-- Tab 1 -->
+<button class="tab-item py-2 px-3 rounded-t-lg font-label-code text-label-code text-outline hover:text-primary transition-colors flex items-center gap-2 border-b-2 border-transparent" id="tab-btn-1" onclick="switchEndpointTab(1)">
+<span class="px-1.5 py-0.5 rounded bg-surface-container text-primary font-bold text-xs">GET</span>
+<span>/api/events</span>
+</button>
+<!-- Tab 2 -->
+<button class="tab-item py-2 px-3 rounded-t-lg font-label-code text-label-code text-outline hover:text-primary transition-colors flex items-center gap-2 border-b-2 border-transparent" id="tab-btn-2" onclick="switchEndpointTab(2)">
+<span class="px-1.5 py-0.5 rounded bg-surface-container text-primary font-bold text-xs">GET</span>
+<span>/api/events/{id}</span>
+</button>
+<!-- Tab 3 (POST Conflict/Created) -->
+<button class="tab-item py-2 px-3 rounded-t-lg font-label-code text-label-code text-outline hover:text-primary transition-colors flex items-center gap-2 border-b-2 border-transparent" id="tab-btn-3" onclick="switchEndpointTab(3)">
+<span class="px-1.5 py-0.5 rounded bg-orange-100 text-secondary font-bold text-xs">POST</span>
+<span>/api/registrations</span>
+</button>
+<!-- Tab 4 -->
+<button class="tab-item py-2 px-3 rounded-t-lg font-label-code text-label-code text-outline hover:text-primary transition-colors flex items-center gap-2 border-b-2 border-transparent" id="tab-btn-4" onclick="switchEndpointTab(4)">
+<span class="px-1.5 py-0.5 rounded bg-surface-container text-primary font-bold text-xs">GET</span>
+<span>/api/me/registrations</span>
+</button>
+<!-- Tab 5 (Current Screen Target Active Tab) -->
+<button class="tab-item py-2 px-3 rounded-t-lg font-label-code text-label-code bg-surface-container-lowest text-primary font-bold shadow-sm flex items-center gap-2 border-b-2 border-primary" id="tab-btn-5" onclick="switchEndpointTab(5)">
+<span class="px-1.5 py-0.5 rounded bg-surface-container text-primary font-bold text-xs">GET</span>
+<span>/api/events/{id}/registrations</span>
+</button>
+</div>
+</div>
+<!-- Live Interactive Playground Workspace -->
+<div class="grid grid-cols-1 lg:grid-cols-12 divide-y lg:divide-y-0 lg:divide-x divide-surface-container-high bg-surface-container-lowest">
+<!-- Left: Request Configuration (5 Columns) -->
+<div class="lg:col-span-5 p-space-md flex flex-col gap-space-md">
+<!-- Method & URI input -->
+<div>
+<label class="block font-label-code text-label-code text-outline mb-1">Target Resource</label>
+<div class="flex items-center rounded-lg border border-outline-variant overflow-hidden bg-surface-container-lowest focus-within:ring-2 focus-within:ring-primary focus-within:border-primary">
+<span class="bg-surface-container text-primary font-label-code text-label-code font-bold px-3 py-2 border-r border-outline-variant" id="consoleMethodLabel">
+                GET
+              </span>
+<input class="flex-1 px-3 py-2 font-label-code text-label-code text-on-surface bg-transparent border-0 focus:ring-0" id="consoleUriInput" type="text" value="/api/events/evt_cns2025_99x/registrations"/>
+</div>
+</div>
+<!-- Query Parameters Table -->
+<div>
+<div class="flex items-center justify-between mb-1">
+<span class="font-label-code text-label-code text-outline">Query Parameters</span>
+<button class="text-xs font-label-code text-primary font-semibold hover:underline" onclick="addQueryParam()">+ Add Param</button>
+</div>
+<div class="space-y-2 border border-surface-container-high rounded-lg p-2 bg-surface-container-low">
+<div class="flex items-center gap-2">
+<input class="w-1/3 px-2 py-1 text-xs font-label-code rounded border border-outline-variant bg-surface-container-lowest text-on-surface" type="text" value="status"/>
+<span class="text-outline text-xs">=</span>
+<input class="flex-1 px-2 py-1 text-xs font-label-code rounded border border-outline-variant bg-surface-container-lowest text-on-surface" type="text" value="confirmed,checked-in"/>
+<span class="material-symbols-outlined text-[16px] text-outline cursor-pointer hover:text-error">close</span>
+</div>
+<div class="flex items-center gap-2">
+<input class="w-1/3 px-2 py-1 text-xs font-label-code rounded border border-outline-variant bg-surface-container-lowest text-on-surface" type="text" value="limit"/>
+<span class="text-outline text-xs">=</span>
+<input class="flex-1 px-2 py-1 text-xs font-label-code rounded border border-outline-variant bg-surface-container-lowest text-on-surface" type="text" value="50"/>
+<span class="material-symbols-outlined text-[16px] text-outline cursor-pointer hover:text-error">close</span>
+</div>
+</div>
+</div>
+<!-- Live Headers Inspector -->
+<div>
+<div class="flex items-center justify-between mb-1">
+<span class="font-label-code text-label-code text-outline">Request Headers</span>
+<span class="text-xs font-label-code text-emerald-700 bg-emerald-50 px-1.5 py-0.5 rounded">Bearer JWT Valid</span>
+</div>
+<div class="border border-surface-container-high rounded-lg p-2 bg-surface-container-low font-label-code text-xs space-y-1">
+<div class="flex justify-between text-on-surface-variant">
+<span class="text-outline">Authorization:</span>
+<span class="text-primary truncate max-w-[200px]">Bearer eyJhbGciOi...org_pulse</span>
+</div>
+<div class="flex justify-between text-on-surface-variant">
+<span class="text-outline">Accept:</span>
+<span>application/json</span>
+</div>
+<div class="flex justify-between text-on-surface-variant">
+<span class="text-outline">X-Pulse-Org-ID:</span>
+<span class="text-on-surface font-semibold">org_eventpulse_admin</span>
+</div>
+</div>
+</div>
+<!-- Action CTA Button -->
+<div class="pt-2">
+<button class="w-full py-2.5 px-4 rounded-lg bg-primary hover:bg-primary-container text-on-primary font-label-code text-label-code font-bold flex items-center justify-center gap-2 transition-all duration-150 active:scale-98 shadow-sm" id="sendRequestBtn" onclick="simulateSendRequest()">
+<span class="material-symbols-outlined text-[18px]">send</span>
+<span>Send Request</span>
+</button>
+</div>
+</div>
+<!-- Right: Response Viewer & Syntax Highlighter (7 Columns) -->
+<div class="lg:col-span-7 p-space-md flex flex-col bg-[#151226] text-surface">
+<!-- Response Status Bar -->
+<div class="flex items-center justify-between pb-3 border-b border-gray-800">
+<div class="flex items-center gap-3">
+<span class="text-body-sm font-label-code text-gray-400">Response Status:</span>
+<span class="px-2.5 py-0.5 rounded-full text-xs font-label-code font-bold bg-emerald-950 text-emerald-300 border border-emerald-800 flex items-center gap-1.5" id="responseStatusBadge">
+<span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span>
+                200 OK
+              </span>
+</div>
+<div class="flex items-center gap-3 font-label-code text-xs text-gray-400">
+<span id="responseTime">Time: 42 ms</span>
+<span id="responseSize">Size: 4.8 KB</span>
+<button class="p-1 hover:text-white rounded hover:bg-gray-800 transition-colors" onclick="copyResponseJson()" title="Copy Raw JSON">
+<span class="material-symbols-outlined text-[16px]">content_copy</span>
+</button>
+</div>
+</div>
+<!-- Syntax-Highlighted JSON Body Container -->
+<div class="mt-3 flex-1 overflow-y-auto max-h-[360px] font-label-code text-xs leading-relaxed font-mono">
+<pre class="text-gray-300 selection:bg-primary-container" id="jsonViewer"><span class="text-purple-400">{</span>
+  <span class="text-inverse-primary">"status"</span>: <span class="text-emerald-400">"success"</span>,
+  <span class="text-inverse-primary">"event_id"</span>: <span class="text-yellow-300">"evt_cns2025_99x"</span>,
+  <span class="text-inverse-primary">"event_name"</span>: <span class="text-yellow-300">"Cloud Native Summit 2025"</span>,
+  <span class="text-inverse-primary">"pagination"</span>: <span class="text-purple-400">{</span>
+    <span class="text-inverse-primary">"total_count"</span>: <span class="text-orange-400">428</span>,
+    <span class="text-inverse-primary">"limit"</span>: <span class="text-orange-400">50</span>,
+    <span class="text-inverse-primary">"offset"</span>: <span class="text-orange-400">0</span>,
+    <span class="text-inverse-primary">"has_more"</span>: <span class="text-pink-400">true</span>
+  <span class="text-purple-400">}</span>,
+  <span class="text-inverse-primary">"data"</span>: <span class="text-purple-400">[</span>
+    <span class="text-purple-400">{</span>
+      <span class="text-inverse-primary">"registration_id"</span>: <span class="text-yellow-300">"reg_89af321c0b"</span>,
+      <span class="text-inverse-primary">"attendee"</span>: <span class="text-purple-400">{</span>
+        <span class="text-inverse-primary">"name"</span>: <span class="text-yellow-300">"Elena Rostova"</span>,
+        <span class="text-inverse-primary">"email"</span>: <span class="text-yellow-300">"elena.rostova@cloudscale.io"</span>,
+        <span class="text-inverse-primary">"title"</span>: <span class="text-yellow-300">"Staff SRE"</span>
+      <span class="text-purple-400">}</span>,
+      <span class="text-inverse-primary">"ticket_tier"</span>: <span class="text-yellow-300">"VIP All-Access"</span>,
+      <span class="text-inverse-primary">"status"</span>: <span class="text-emerald-400">"checked_in"</span>,
+      <span class="text-inverse-primary">"qr_code_hash"</span>: <span class="text-yellow-300">"sha256_d91f28b..."</span>,
+      <span class="text-inverse-primary">"check_in_timestamp"</span>: <span class="text-yellow-300">"2025-05-12T14:22:09Z"</span>
+    <span class="text-purple-400">}</span>,
+    <span class="text-purple-400">{</span>
+      <span class="text-inverse-primary">"registration_id"</span>: <span class="text-yellow-300">"reg_44bc910a3d"</span>,
+      <span class="text-inverse-primary">"attendee"</span>: <span class="text-purple-400">{</span>
+        <span class="text-inverse-primary">"name"</span>: <span class="text-yellow-300">"Marcus Chen"</span>,
+        <span class="text-inverse-primary">"email"</span>: <span class="text-yellow-300">"mchen@kubepulse.net"</span>
+      <span class="text-purple-400">}</span>,
+      <span class="text-inverse-primary">"ticket_tier"</span>: <span class="text-yellow-300">"General Admission"</span>,
+      <span class="text-inverse-primary">"status"</span>: <span class="text-blue-400">"confirmed"</span>,
+      <span class="text-inverse-primary">"check_in_timestamp"</span>: <span class="text-pink-400">null</span>
+    <span class="text-purple-400">}</span>
+  <span class="text-purple-400">]</span>
+<span class="text-purple-400">}</span></pre>
+</div>
+<!-- Bottom Console Status Footer -->
+<div class="pt-3 border-t border-gray-800 flex items-center justify-between text-[11px] font-label-code text-gray-500">
+<span>Rate Limit: 994 / 1000 remaining</span>
+<span class="text-emerald-400">● Connection TLS 1.3 Active</span>
+</div>
+</div>
+</div>
+</section>
+</main>
+<!-- LIGHTWEIGHT FOOTER -->
+<footer class="mt-auto border-t border-surface-container-high bg-surface-container-lowest py-space-md">
+<div class="max-w-[1280px] mx-auto px-space-md md:px-margin-tablet lg:px-margin-desktop flex flex-col sm:flex-row items-center justify-between gap-space-sm text-body-sm font-body-sm text-outline">
+<div class="flex items-center gap-space-sm">
+<span class="font-bold text-primary">Event Pulse</span>
+<span>•</span>
+<span>Organizer Suite &amp; Developer Console v1.4.0</span>
+</div>
+<div class="flex items-center gap-space-md">
+<a class="hover:text-primary transition-colors" href="#">Endpoint Health</a>
+<a class="hover:text-primary transition-colors" href="#">Webhook Logs</a>
+<a class="hover:text-primary transition-colors" href="#">API Reference</a>
+<a class="hover:text-primary transition-colors" href="#">Privacy Policy</a>
+</div>
+</div>
+</footer>
+<!-- SCRIPT FOR CONSOLE INTERACTION & ENDPOINT SWITCHER -->
+<script>
+    // Smooth scroll from top header button to live console
+    document.getElementById('scrollToConsoleBtn')?.addEventListener('click', () => {
+      document.getElementById('apiConsolePanel')?.scrollIntoView({ behavior: 'smooth' });
+    });
+
+    const endpointData = {
+      1: {
+        method: "GET",
+        uri: "/api/events",
+        badgeColor: "bg-surface-container text-primary",
+        status: "200 OK",
+        statusClass: "bg-emerald-950 text-emerald-300 border-emerald-800",
+        json: `{\n  "status": "success",\n  "total_events": 14,\n  "data": [\n    {\n      "id": "evt_cns2025_99x",\n      "title": "Cloud Native Summit 2025",\n      "venue": "San Francisco Tech Center",\n      "capacity": 500,\n      "registered": 428\n    }\n  ]\n}`
+      },
+      2: {
+        method: "GET",
+        uri: "/api/events/evt_cns2025_99x",
+        badgeColor: "bg-surface-container text-primary",
+        status: "200 OK",
+        statusClass: "bg-emerald-950 text-emerald-300 border-emerald-800",
+        json: `{\n  "event_id": "evt_cns2025_99x",\n  "title": "Cloud Native Summit 2025",\n  "owner_org": "org_eventpulse_admin",\n  "status": "published",\n  "tier_pricing": {\n    "vip": 499.00,\n    "standard": 199.00\n  }\n}`
+      },
+      3: {
+        method: "POST",
+        uri: "/api/registrations",
+        badgeColor: "bg-orange-100 text-secondary",
+        status: "409 Conflict",
+        statusClass: "bg-rose-950 text-rose-300 border-rose-800",
+        json: `{\n  "error": "conflict_already_registered",\n  "code": 409,\n  "message": "User with email 'jmeyer@berlin-tech.de' already holds ticket or revoked seat on evt_cns2025_99x.",\n  "help": "Contact organizer or invoke refund reconciliation API."\n}`
+      },
+      4: {
+        method: "GET",
+        uri: "/api/me/registrations",
+        badgeColor: "bg-surface-container text-primary",
+        status: "200 OK",
+        statusClass: "bg-emerald-950 text-emerald-300 border-emerald-800",
+        json: `{\n  "user_id": "usr_organizer_super",\n  "passes": [\n    {\n      "registration_id": "reg_master_pass_001",\n      "role": "Organizer All-Access",\n      "valid_until": "2025-12-31"\n    }\n  ]\n}`
+      },
+      5: {
+        method: "GET",
+        uri: "/api/events/evt_cns2025_99x/registrations",
+        badgeColor: "bg-surface-container text-primary",
+        status: "200 OK",
+        statusClass: "bg-emerald-950 text-emerald-300 border-emerald-800",
+        json: `{\n  "status": "success",\n  "event_id": "evt_cns2025_99x",\n  "event_name": "Cloud Native Summit 2025",\n  "pagination": {\n    "total_count": 428,\n    "limit": 50,\n    "offset": 0,\n    "has_more": true\n  },\n  "data": [\n    {\n      "registration_id": "reg_89af321c0b",\n      "attendee": {\n        "name": "Elena Rostova",\n        "email": "elena.rostova@cloudscale.io"\n      },\n      "ticket_tier": "VIP All-Access",\n      "status": "checked_in"\n    }\n  ]\n}`
+      }
+    };
+
+    function switchEndpointTab(tabIndex) {
+      document.querySelectorAll('.tab-item').forEach((btn, index) => {
+        btn.classList.remove('bg-surface-container-lowest', 'text-primary', 'font-bold', 'border-primary', 'shadow-sm');
+        btn.classList.add('text-outline', 'border-transparent');
+      });
+
+      const activeBtn = document.getElementById(`tab-btn-${tabIndex}`);
+      if (activeBtn) {
+        activeBtn.classList.add('bg-surface-container-lowest', 'text-primary', 'font-bold', 'border-primary', 'shadow-sm');
+        activeBtn.classList.remove('text-outline', 'border-transparent');
+      }
+
+      const item = endpointData[tabIndex];
+      if (item) {
+        const methodElem = document.getElementById('consoleMethodLabel');
+        const uriElem = document.getElementById('consoleUriInput');
+        const statusBadge = document.getElementById('responseStatusBadge');
+        const jsonViewer = document.getElementById('jsonViewer');
+
+        methodElem.innerText = item.method;
+        uriElem.value = item.uri;
+        statusBadge.innerHTML = `<span class="w-1.5 h-1.5 rounded-full ${item.status.includes('200') ? 'bg-emerald-400' : 'bg-rose-400'}"></span> ${item.status}`;
+        statusBadge.className = `px-2.5 py-0.5 rounded-full text-xs font-label-code font-bold border flex items-center gap-1.5 ${item.statusClass}`;
+        jsonViewer.innerText = item.json;
+      }
+    }
+
+    function simulateSendRequest() {
+      const btn = document.getElementById('sendRequestBtn');
+      const originalText = btn.innerHTML;
+      btn.innerHTML = `<span class="material-symbols-outlined text-[18px] animate-spin">refresh</span><span>Executing...</span>`;
+      btn.classList.add('opacity-75');
+
+      setTimeout(() => {
+        btn.innerHTML = originalText;
+        btn.classList.remove('opacity-75');
+        const timeEl = document.getElementById('responseTime');
+        timeEl.innerText = `Time: ${Math.floor(Math.random() * 30 + 20)} ms`;
+      }, 400);
+    }
+
+    function addQueryParam() {
+      alert("Custom Query Parameter injected: &filter_tier=vip");
+    }
+
+    function copyResponseJson() {
+      const text = document.getElementById('jsonViewer').innerText;
+      navigator.clipboard.writeText(text).then(() => {
+        alert("Payload copied to clipboard!");
+      });
+    }
+  </script>
+</body></html>
